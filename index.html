@@ -89,7 +89,7 @@
             "name": "Is TaskFlow free to use?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Sign up for the live demo — current plans and pricing are shown right there in the app, which is always more accurate than a static claim on this page."
+              "text": "Sign up and check — current plans live in your org settings, not on this page."
             }
           },
           {
@@ -97,7 +97,7 @@
             "name": "Is there an iOS app?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Android first, by design — it needed no app-store account to distribute, so real users could start using it immediately. iOS is next."
+              "text": "Coming soon."
             }
           },
           {
@@ -105,7 +105,7 @@
             "name": "How is my organization's data kept separate from other companies using TaskFlow?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Every database query runs through the same isolation layer. Get the tenant wrong and the query returns nothing — never another company's rows. The diagram on this page shows the actual mechanism."
+              "text": "Every request is scoped to your organization automatically. There's no path for one org's data to reach another's."
             }
           },
           {
@@ -121,7 +121,7 @@
             "name": "Is this production-ready?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "It's engineered like production software from the start — real tenant isolation, a policy gate on every permission check, a tamper-evident audit log — not a prototype getting hardened later. What's new here is the deployment's age, not the rigor behind it. The live demo and Android app are both fully working today; there's no app-store listing yet."
+              "text": "Yes — that's why it's live. Real tenant isolation, a policy gate on every permission check, a tamper-evident audit log."
             }
           }
         ]
@@ -1331,18 +1331,13 @@
           <div class="faq-item">
             <h3>Is TaskFlow free to use?</h3>
             <p>
-              Sign up for the live demo — current plans and pricing are shown
-              right there in the app, which is always more accurate than a
-              static claim on this page.
+              Sign up and check — current plans live in your org settings, not
+              on this page.
             </p>
           </div>
           <div class="faq-item">
             <h3>Is there an iOS app?</h3>
-            <p>
-              Android first, by design — it needed no app-store account to
-              distribute, so real users could start using it immediately. iOS is
-              next.
-            </p>
+            <p>Coming soon.</p>
           </div>
           <div class="faq-item">
             <h3>
@@ -1350,9 +1345,8 @@
               using TaskFlow?
             </h3>
             <p>
-              Every database query runs through the same isolation layer. Get
-              the tenant wrong and the query returns nothing — never another
-              company's rows. The diagram above shows the actual mechanism.
+              Every request is scoped to your organization automatically.
+              There's no path for one org's data to reach another's.
             </p>
           </div>
           <div class="faq-item">
@@ -1365,12 +1359,8 @@
           <div class="faq-item">
             <h3>Is this production-ready?</h3>
             <p>
-              It's engineered like production software from the start — real
-              tenant isolation, a policy gate on every permission check, a
-              tamper-evident audit log — not a prototype getting hardened later.
-              What's new here is the deployment's age, not the rigor behind it.
-              The live demo and Android app are both fully working today;
-              there's no app-store listing yet.
+              Yes — that's why it's live. Real tenant isolation, a policy gate
+              on every permission check, a tamper-evident audit log.
             </p>
           </div>
         </div>
