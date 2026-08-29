@@ -1331,13 +1331,18 @@
           <div class="faq-item">
             <h3>Is TaskFlow free to use?</h3>
             <p>
-              Sign up and check your org settings for current plans, not this
-              page.
+              TaskFlow offers a free way to get started. You can create an organization, 
+              invite your team, and explore the core collaboration features. 
+              Available plans and limits are managed directly from your organization settings 
+              and may evolve as the product develops.
             </p>
           </div>
           <div class="faq-item">
             <h3>Is there an iOS app?</h3>
-            <p>Coming soon.</p>
+            <p>
+              An Android app is already available and can be downloaded directly from TaskFlow. 
+              The iOS app is currently in development and will be available in a future release.
+            </p>
           </div>
           <div class="faq-item">
             <h3>
@@ -1345,22 +1350,28 @@
               using TaskFlow?
             </h3>
             <p>
-              Every request is scoped to your organization automatically.
-              There's no path for one org's data to reach another's.
+              TaskFlow is built as a multi-tenant application with organization-level data isolation. 
+              Every authenticated request carries an organization context, and access to workspace resources 
+              is scoped against that context before data is returned or modified. Authorization is enforced 
+              independently of the UI, so users cannot access resources belonging to another organization 
+              simply by changing an ID or request parameter.
             </p>
           </div>
           <div class="faq-item">
             <h3>Can I self-host TaskFlow?</h3>
             <p>
-              Not today. It runs as one hosted, multi-tenant service rather than
-              a self-hosted package.
+              TaskFlow is currently offered as a hosted service and is not distributed as a self-hosted package. 
+              This allows us to manage infrastructure, deployments, security updates, and the multi-tenant environment 
+              centrally while keeping the product consistent for all organizations.
             </p>
           </div>
           <div class="faq-item">
             <h3>Is this production-ready?</h3>
             <p>
-              Yes, that's why it's live: real tenant isolation, a policy gate on
-              every permission check, a tamper-evident audit log.
+              TaskFlow is live and designed around production-oriented requirements rather than being a simple prototype. 
+              It includes organization-level tenant isolation, centralized authorization checks, authentication and session security, 
+              audit logging, and controlled access to workspace resources. The platform is actively evolving, so new capabilities and 
+              refinements are continuously being introduced.
             </p>
           </div>
         </div>
