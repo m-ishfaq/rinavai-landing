@@ -1,0 +1,61 @@
+## Deploys this repo's landing page to GitHub Pages on every push to main.
+##
+## The demo URL is templated, not hardcoded: index.html carries __DEMO_URL__
+## wherever the live-demo link appears, and the build step below substitutes
+## the real value from a repository VARIABLE (Settings -> Secrets and
+## variables -> Actions -> Variables tab -> DEMO_URL), not a secret — it's
+## public information the page itself displays, a repo variable is the
+## correct mechanism, not repo secrets. Changing where the demo lives is a
+## one-line settings change and a re-run of this workflow, never an edit to
+## index.html.
+
+name: Deploy landing page
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Substitute the demo URL
+        env:
+          DEMO_URL: ${{ vars.DEMO_URL }}
+        run: |
+          if [ -z "$DEMO_URL" ]; then
+            echo "::error::Repo variable DEMO_URL is not set (Settings -> Secrets and variables -> Actions -> Variables). Refusing to publish a page with a literal __DEMO_URL__ placeholder still in it."
+            exit 1
+          fi
+          sed -i "s|__DEMO_URL__|${DEMO_URL}|g" index.html
+          if grep -q '__DEMO_URL__' index.html; then
+            echo "::error::__DEMO_URL__ placeholder survived substitution — aborting rather than publishing a broken link."
+            exit 1
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
