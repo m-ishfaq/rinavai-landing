@@ -89,7 +89,7 @@
             "name": "Is TaskFlow free to use?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The live demo is free to sign up for and use right now. Formal pricing hasn't shipped yet."
+              "text": "Yes — sign up for the live demo and use it at no cost. A paid plan hasn't launched yet."
             }
           },
           {
@@ -97,7 +97,7 @@
             "name": "Is there an iOS app?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Not yet. Development has focused on Android first, since it needed no app-store account to distribute. iOS is possible but not built."
+              "text": "Not yet. Android shipped first since it needed no app-store account to distribute — iOS is a real possibility, just not built."
             }
           },
           {
@@ -105,7 +105,7 @@
             "name": "How is my organization's data kept separate from other companies using TaskFlow?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Every database query runs through one tenant-scoped client shared by the whole codebase. Skip it or get the tenant wrong, and the query returns zero rows — never another company's data. See the diagram on this page for the actual mechanism."
+              "text": "Every database query runs through the same isolation layer. Get the tenant wrong and the query returns nothing — never another company's rows. The diagram on this page shows the actual mechanism."
             }
           },
           {
@@ -113,7 +113,7 @@
             "name": "Can I self-host TaskFlow?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Not as a packaged product today. It runs as a single hosted, multi-tenant service, not a self-host distribution."
+              "text": "Not today — it runs as one hosted, multi-tenant service rather than a self-hosted package."
             }
           },
           {
@@ -121,7 +121,7 @@
             "name": "Is this production-ready?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "It's an early, honest release: the live demo and Android APK both work today, there's no app-store listing yet, and real bugs are still being found and fixed — which is exactly why it's public at this stage rather than held back until it feels finished."
+              "text": "It's a genuinely early release — the live demo and Android app both work today, and there's no app-store listing yet. The architecture on this page is what keeps it trustworthy while it's still young: guardrails that catch mistakes, not a promise that none exist."
             }
           }
         ]
@@ -1331,15 +1331,15 @@
           <div class="faq-item">
             <h3>Is TaskFlow free to use?</h3>
             <p>
-              The live demo is free to sign up for and use right now. Formal
-              pricing hasn't shipped yet.
+              Yes — sign up for the live demo and use it at no cost. A paid plan
+              hasn't launched yet.
             </p>
           </div>
           <div class="faq-item">
             <h3>Is there an iOS app?</h3>
             <p>
-              Not yet. Development has focused on Android first, since it needed
-              no app-store account to distribute. iOS is possible but not built.
+              Not yet. Android shipped first since it needed no app-store
+              account to distribute — iOS is a real possibility, just not built.
             </p>
           </div>
           <div class="faq-item">
@@ -1348,25 +1348,26 @@
               using TaskFlow?
             </h3>
             <p>
-              Every database query runs through one tenant-scoped client shared
-              by the whole codebase — see the diagram above for the actual
-              mechanism, not a marketing summary of it.
+              Every database query runs through the same isolation layer. Get
+              the tenant wrong and the query returns nothing — never another
+              company's rows. The diagram above shows the actual mechanism.
             </p>
           </div>
           <div class="faq-item">
             <h3>Can I self-host TaskFlow?</h3>
             <p>
-              Not as a packaged product today. It runs as a single hosted,
-              multi-tenant service.
+              Not today — it runs as one hosted, multi-tenant service rather
+              than a self-hosted package.
             </p>
           </div>
           <div class="faq-item">
             <h3>Is this production-ready?</h3>
             <p>
-              It's an early, honest release — the live demo and Android APK both
-              work today, there's no app-store listing yet, and real bugs are
-              still being found and fixed. See "where things actually stand"
-              above.
+              It's a genuinely early release — the live demo and Android app
+              both work today, and there's no app-store listing yet. The
+              architecture above is what keeps it trustworthy while it's still
+              young: guardrails that catch mistakes, not a promise that none
+              exist.
             </p>
           </div>
         </div>
