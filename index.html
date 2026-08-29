@@ -8,7 +8,7 @@
     <title>TaskFlow — Where work actually flows</title>
     <meta
       name="description"
-      content="Boards, chat, real-time collaborative docs, and in-app voice — one platform, built solo and security-first. Try the live demo or download the Android APK."
+      content="Boards, chat, real-time collaborative docs, and in-app voice — one team collaboration platform, built solo and security-first. Try the live demo or download the Android APK."
     />
     <link
       rel="canonical"
@@ -26,7 +26,7 @@
     <meta property="og:title" content="TaskFlow — Where work actually flows" />
     <meta
       property="og:description"
-      content="Boards, chat, real-time collaborative docs, and in-app voice — one platform, built solo and security-first."
+      content="Boards, chat, real-time collaborative docs, and in-app voice — one team collaboration platform, built solo and security-first."
     />
     <meta
       property="og:image"
@@ -44,7 +44,7 @@
     <meta name="twitter:title" content="TaskFlow — Where work actually flows" />
     <meta
       name="twitter:description"
-      content="Boards, chat, real-time collaborative docs, and in-app voice — one platform, built solo and security-first."
+      content="Boards, chat, real-time collaborative docs, and in-app voice — one team collaboration platform, built solo and security-first."
     />
     <meta
       name="twitter:image"
@@ -79,12 +79,62 @@
         }
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is TaskFlow free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The live demo is free to sign up for and use right now. Formal pricing hasn't shipped yet."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there an iOS app?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not yet. Development has focused on Android first, since it needed no app-store account to distribute. iOS is possible but not built."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is my organization's data kept separate from other companies using TaskFlow?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every database query runs through one tenant-scoped client shared by the whole codebase. Skip it or get the tenant wrong, and the query returns zero rows — never another company's data. See the diagram on this page for the actual mechanism."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I self-host TaskFlow?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not as a packaged product today. It runs as a single hosted, multi-tenant service, not a self-host distribution."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this production-ready?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It's an early, honest release: the live demo and Android APK both work today, there's no app-store listing yet, and real bugs are still being found and fixed — which is exactly why it's public at this stage rather than held back until it feels finished."
+            }
+          }
+        ]
+      }
+    </script>
 
     <style>
       /* ================= Tokens — lifted from packages/tokens/src/colors.ts,
      the real palette apps/web and apps/mobile already ship. One dark world
      by design: the product itself has no light theme, so neither does this
-     page — colors are set explicitly rather than behind a media query. */
+     page — colors are set explicitly rather than behind a media query.
+     The accent is used sparingly and flat (never as a gradient fill) so it
+     reads as a considered signal, not a decorative pop. */
       :root {
         --surface: #0a0d14;
         --surface-raised: #12161e;
@@ -100,6 +150,15 @@
         --accent-ink: #f7f8ff;
         --success: #3bb974;
         --warning: #e8a127;
+
+        /* The one inverted section (closing CTA) needs its own light-on-dark
+           reversed pair — this page has no light theme to borrow from, so
+           these are declared once here rather than faked with opacity
+           tricks on the dark tokens above. */
+        --invert-bg: #f4f2fb;
+        --invert-ink: #17131f;
+        --invert-muted: #5b5568;
+        --invert-line: #ded9ee;
 
         --font-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
         --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
@@ -141,7 +200,7 @@
       :focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
-        border-radius: 4px;
+        border-radius: 3px;
       }
       img,
       svg {
@@ -157,7 +216,7 @@
       }
 
       .wrap {
-        max-width: 1080px;
+        max-width: 1120px;
         margin: 0 auto;
         padding: 0 clamp(20px, 5vw, 48px);
       }
@@ -210,7 +269,7 @@
         font-weight: 600;
         font-size: 15px;
         padding: 11px 20px;
-        border-radius: 9px;
+        border-radius: 4px;
         border: 1px solid transparent;
         cursor: pointer;
         text-decoration: none;
@@ -242,64 +301,42 @@
       .btn-sm {
         padding: 8px 14px;
         font-size: 13.5px;
-        border-radius: 7px;
+        border-radius: 3px;
+      }
+      /* Inverted-section button variants — dark button/border on the one
+         light panel, since the default btn-* pair assumes a dark ground. */
+      .btn-invert-primary {
+        background: var(--invert-ink);
+        color: var(--invert-bg);
+      }
+      .btn-invert-primary:hover {
+        background: color-mix(in srgb, var(--invert-ink) 85%, var(--accent));
+      }
+      .btn-invert-ghost {
+        background: transparent;
+        color: var(--invert-ink);
+        border-color: var(--invert-line);
+      }
+      .btn-invert-ghost:hover {
+        background: color-mix(in srgb, var(--invert-bg) 90%, var(--invert-ink));
       }
 
-      /* ================= Hero — ambient flow-node field ================= */
+      /* ================= Hero — asymmetric: copy left, board mockup right ================= */
       .hero {
-        padding: clamp(64px, 12vw, 128px) 0 clamp(56px, 9vw, 96px);
-        overflow: clip;
+        padding: clamp(56px, 10vw, 108px) 0 clamp(56px, 9vw, 96px);
       }
-      .hero-field {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        overflow: hidden;
-        mask-image: linear-gradient(to bottom, black 55%, transparent 96%);
+      .hero .wrap {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: clamp(32px, 5vw, 64px);
+        align-items: center;
       }
-      .node {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(50px);
-        background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-        opacity: 0.35;
-        animation: drift 22s ease-in-out infinite;
-      }
-      .node.n1 {
-        width: 420px;
-        height: 420px;
-        top: -140px;
-        left: 8%;
-        animation-delay: 0s;
-      }
-      .node.n2 {
-        width: 320px;
-        height: 320px;
-        top: 60px;
-        right: 6%;
-        opacity: 0.25;
-        animation-delay: -7s;
-        animation-duration: 26s;
-      }
-      .node.n3 {
-        width: 260px;
-        height: 260px;
-        bottom: -80px;
-        left: 38%;
-        opacity: 0.2;
-        animation-delay: -14s;
-        animation-duration: 30s;
-      }
-      @keyframes drift {
-        0%,
-        100% {
-          transform: translate(0, 0) scale(1);
+      @media (max-width: 860px) {
+        .hero .wrap {
+          grid-template-columns: 1fr;
         }
-        33% {
-          transform: translate(30px, 20px) scale(1.08);
-        }
-        66% {
-          transform: translate(-20px, 30px) scale(0.96);
+        .hero-visual {
+          order: -1;
         }
       }
 
@@ -312,7 +349,7 @@
         letter-spacing: 0.06em;
         color: var(--ink-muted);
         border: 1px solid var(--line);
-        border-radius: 100px;
+        border-radius: 3px;
         padding: 6px 14px;
         margin-bottom: 28px;
       }
@@ -328,23 +365,18 @@
       }
 
       h1.headline {
-        font-size: clamp(38px, 6vw, 68px);
+        font-size: clamp(36px, 4.6vw, 58px);
         font-weight: 600;
         letter-spacing: -0.025em;
         line-height: 1.05;
-        max-width: 16ch;
       }
       h1.headline em {
         font-style: normal;
         color: var(--accent);
-        background: linear-gradient(180deg, var(--accent), #8b7ee8);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
       }
       .sub {
         margin-top: 22px;
-        font-size: clamp(17px, 2vw, 20px);
+        font-size: clamp(16px, 1.6vw, 18.5px);
         color: var(--ink-muted);
         max-width: 46ch;
         line-height: 1.6;
@@ -367,6 +399,55 @@
         letter-spacing: 0.01em;
       }
 
+      /* ---- Board mockup: an honest, clearly-abstract illustration, not a
+         fake screenshot — window chrome + three columns of blank cards.
+         The single accent touch (one "active" card's left edge) is the
+         only saturated color in the whole graphic. ---- */
+      .mock-window {
+        background: var(--surface-raised);
+        border: 1px solid var(--line);
+        overflow: hidden;
+      }
+      .mock-bar {
+        display: flex;
+        gap: 6px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      .mock-bar span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--line-strong);
+      }
+      .mock-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        padding: 18px;
+      }
+      .mock-col-head {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 10px;
+      }
+      .mock-card {
+        height: 30px;
+        border-radius: 3px;
+        background: var(--surface-hover);
+        border: 1px solid var(--line);
+        margin-bottom: 8px;
+      }
+      .mock-card.short {
+        width: 70%;
+      }
+      .mock-card.active {
+        border-left: 2px solid var(--accent);
+      }
+
       /* ================= Section scaffolding ================= */
       .section {
         padding: clamp(64px, 9vw, 108px) 0;
@@ -385,7 +466,7 @@
         font-size: clamp(28px, 3.6vw, 38px);
         font-weight: 600;
         letter-spacing: -0.02em;
-        max-width: 22ch;
+        max-width: 24ch;
       }
       .section .lede {
         margin-top: 16px;
@@ -403,7 +484,6 @@
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         background: var(--line);
         border: 1px solid var(--line);
-        border-radius: 14px;
         overflow: hidden;
       }
       .feature {
@@ -430,38 +510,101 @@
         line-height: 1.6;
       }
 
-      /* ================= Guardrails / build story ================= */
-      .badge-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 28px 0 30px;
+      /* ================= How it works — 3 honest steps ================= */
+      .steps {
+        margin-top: 48px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
       }
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
+      .step {
+        background: var(--surface);
+        padding: 28px 26px;
+        border-top: 2px solid var(--accent);
+      }
+      .step .num {
         font-family: var(--font-mono);
         font-size: 13px;
-        color: var(--ink);
-        background: var(--surface-raised);
+        color: var(--ink-faint);
+      }
+      .step h3 {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .step p {
+        margin-top: 8px;
+        color: var(--ink-muted);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      @media (max-width: 760px) {
+        .steps {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ================= Diagram ================= */
+      figure.diagram {
+        margin: 40px 0 8px;
+        padding: 0;
+      }
+      .diagram-scroll {
+        overflow-x: auto;
         border: 1px solid var(--line);
-        border-radius: 100px;
-        padding: 8px 16px;
+        background: var(--surface-sunken);
       }
-      .badge::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--accent);
+      .diagram-scroll svg {
+        display: block;
+        min-width: 640px;
+        width: 100%;
+        height: auto;
+        padding: 28px 20px;
+      }
+      figure.diagram figcaption {
+        margin-top: 14px;
+        font-size: 14px;
+        color: var(--ink-muted);
+        max-width: 60ch;
+        line-height: 1.6;
+      }
+
+      .spec-list {
+        margin-top: 28px;
+        display: flex;
+        flex-direction: column;
+        max-width: 68ch;
+        border-top: 1px solid var(--line);
+      }
+      .spec-row {
+        display: flex;
+        gap: 24px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .spec-row dt {
         flex: none;
+        width: 15ch;
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--ink-faint);
+        padding-top: 1px;
       }
+      .spec-row dd {
+        margin: 0;
+        color: var(--ink-muted);
+        font-size: 14.5px;
+        line-height: 1.55;
+      }
+
       .build-body {
         max-width: 68ch;
         color: var(--ink-muted);
         font-size: 16px;
         line-height: 1.75;
+        margin-top: 28px;
       }
       .build-body strong {
         color: var(--ink);
@@ -522,7 +665,7 @@
       .status-note {
         margin-top: 32px;
         padding: 20px 22px;
-        border-radius: 12px;
+        border-radius: 4px;
         background: var(--surface-raised);
         border: 1px solid var(--line);
         font-size: 15px;
@@ -533,16 +676,41 @@
         color: var(--ink);
       }
 
-      /* ================= Closing CTA ================= */
+      /* ================= FAQ ================= */
+      .faq-list {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        max-width: 68ch;
+        border-top: 1px solid var(--line);
+      }
+      .faq-item {
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .faq-item h3 {
+        font-size: 16.5px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .faq-item p {
+        color: var(--ink-muted);
+        font-size: 15px;
+        line-height: 1.65;
+      }
+
+      /* ================= Closing CTA — the one inverted section ================= */
       .closing {
         padding: clamp(72px, 10vw, 120px) 0;
         text-align: center;
-        border-top: 1px solid var(--line);
+        background: var(--invert-bg);
+        color: var(--invert-ink);
       }
       .closing h2 {
         font-size: clamp(26px, 4vw, 36px);
         max-width: none;
         margin: 0 auto;
+        color: var(--invert-ink);
       }
       .closing .cta-row {
         justify-content: center;
@@ -550,22 +718,55 @@
       }
       .closing .cta-note {
         text-align: center;
+        color: var(--invert-muted);
       }
 
       /* ================= Footer ================= */
       footer {
         border-top: 1px solid var(--line);
-        padding: 28px 0;
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-        color: var(--ink-faint);
+        padding: 32px 0;
+        background: var(--surface);
       }
       footer .wrap {
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 16px;
+      }
+      footer .foot-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--ink);
+      }
+      footer .foot-brand svg {
+        color: var(--accent);
+      }
+      footer nav {
+        display: flex;
+        gap: 22px;
+      }
+      footer nav a {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--ink-muted);
+        text-decoration: none;
+      }
+      footer nav a:hover {
+        color: var(--ink);
+      }
+      footer .foot-tag {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--ink-faint);
+        width: 100%;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        margin-top: 18px;
       }
 
       @media (max-width: 640px) {
@@ -575,6 +776,13 @@
         }
         .cta-row .btn {
           width: 100%;
+        }
+        .spec-row {
+          flex-direction: column;
+          gap: 4px;
+        }
+        .spec-row dt {
+          width: auto;
         }
       }
     </style>
@@ -630,34 +838,54 @@
     </header>
 
     <section class="hero">
-      <div class="hero-field" aria-hidden="true">
-        <div class="node n1"></div>
-        <div class="node n2"></div>
-        <div class="node n3"></div>
-      </div>
       <div class="wrap">
-        <span class="kicker"
-          ><span class="dot"></span><b>Live demo running now</b> — sign up, no
-          invite needed</span
-        >
-        <h1 class="headline">Where work<br />actually <em>flows</em>.</h1>
-        <p class="sub">
-          Boards, chat, real-time docs, and voice — one platform. Built solo,
-          security-first, with AI doing most of the typing.
-        </p>
-        <div class="cta-row">
-          <a
-            class="btn btn-primary"
-            href="__DEMO_URL__"
-            target="_blank"
-            rel="noopener"
-            >Try the live demo →</a
+        <div>
+          <span class="kicker"
+            ><span class="dot"></span><b>Live demo running now</b> — sign up, no
+            invite needed</span
           >
-          <a class="btn btn-ghost" href="#download">Download for Android</a>
+          <h1 class="headline">Where work actually <em>flows</em>.</h1>
+          <p class="sub">
+            Boards, chat, real-time docs, and voice — one team collaboration
+            platform. Built solo, security-first, with AI doing most of the
+            typing.
+          </p>
+          <div class="cta-row">
+            <a
+              class="btn btn-primary"
+              href="__DEMO_URL__"
+              target="_blank"
+              rel="noopener"
+              >Try the live demo →</a
+            >
+            <a class="btn btn-ghost" href="#download">Download for Android</a>
+          </div>
+          <p class="cta-note">
+            No credit card. No app store yet — just an APK and about five
+            minutes.
+          </p>
         </div>
-        <p class="cta-note">
-          No credit card. No app store yet — just an APK and about five minutes.
-        </p>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="mock-window">
+            <div class="mock-bar"><span></span><span></span><span></span></div>
+            <div class="mock-board">
+              <div>
+                <div class="mock-col-head">To do</div>
+                <div class="mock-card"></div>
+                <div class="mock-card short"></div>
+              </div>
+              <div>
+                <div class="mock-col-head">In progress</div>
+                <div class="mock-card active"></div>
+                <div class="mock-card"></div>
+              </div>
+              <div>
+                <div class="mock-col-head">Done</div>
+                <div class="mock-card short"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -724,35 +952,312 @@
       </div>
     </section>
 
+    <section class="section" id="how">
+      <div class="wrap">
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps, no sales call.</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="num">01</span>
+            <h3>Sign up</h3>
+            <p>
+              Email and password, or a passkey where it's wired up. Verify your
+              email, done.
+            </p>
+          </div>
+          <div class="step">
+            <span class="num">02</span>
+            <h3>Create your org</h3>
+            <p>
+              Your own workspace, isolated from everyone else's, ready in
+              seconds.
+            </p>
+          </div>
+          <div class="step">
+            <span class="num">03</span>
+            <h3>Start working</h3>
+            <p>
+              Boards, chat, docs, calls — all in the same place, already talking
+              to each other.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="build">
       <div class="wrap">
         <span class="eyebrow">How it's built</span>
         <h2>Built to make mistakes impossible, not just unlikely.</h2>
-        <div class="badge-row">
-          <span class="badge">Tenant-scoped by construction</span>
-          <span class="badge">One policy gate for every permission</span>
-          <span class="badge">Raw SQL &amp; crypto banned by lint</span>
-          <span class="badge">Hash-chained audit log</span>
-        </div>
+        <p class="lede">
+          This was built mostly solo, with AI doing most of the actual typing —
+          which meant no full team's code review to catch every mistake. So the
+          architecture is designed so entire classes of security bugs
+          <strong style="color: var(--ink)">can't be expressed at all.</strong>
+          Here's the one that matters most: how one company's data stays away
+          from another's.
+        </p>
+
+        <figure class="diagram">
+          <div class="diagram-scroll">
+            <svg
+              viewBox="0 0 880 320"
+              role="img"
+              aria-label="Diagram: an Org A request and an Org B request both pass through one shared tenant-scoped client. Each is routed only to its own organization's rows. A dashed path shows what happens if that client is skipped: the query returns zero rows, never another organization's data."
+            >
+              <defs>
+                <marker
+                  id="arrow"
+                  viewBox="0 0 10 10"
+                  refX="8"
+                  refY="5"
+                  markerWidth="6"
+                  markerHeight="6"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-muted)" />
+                </marker>
+                <marker
+                  id="arrow-muted"
+                  viewBox="0 0 10 10"
+                  refX="8"
+                  refY="5"
+                  markerWidth="6"
+                  markerHeight="6"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-faint)" />
+                </marker>
+              </defs>
+
+              <rect
+                x="20"
+                y="46"
+                width="140"
+                height="44"
+                fill="none"
+                stroke="var(--line-strong)"
+                stroke-width="1.5"
+              />
+              <text
+                x="90"
+                y="73"
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="13"
+                fill="var(--ink)"
+              >
+                Org A request
+              </text>
+
+              <rect
+                x="20"
+                y="178"
+                width="140"
+                height="44"
+                fill="none"
+                stroke="var(--line-strong)"
+                stroke-width="1.5"
+              />
+              <text
+                x="90"
+                y="205"
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="13"
+                fill="var(--ink)"
+              >
+                Org B request
+              </text>
+
+              <path
+                d="M160,68 L340,68 L340,136 L370,136"
+                fill="none"
+                stroke="var(--ink-muted)"
+                stroke-width="1.5"
+                marker-end="url(#arrow)"
+              />
+              <path
+                d="M160,200 L340,200 L340,164 L370,164"
+                fill="none"
+                stroke="var(--ink-muted)"
+                stroke-width="1.5"
+                marker-end="url(#arrow)"
+              />
+
+              <rect
+                x="370"
+                y="112"
+                width="180"
+                height="76"
+                fill="none"
+                stroke="var(--accent)"
+                stroke-width="2"
+              />
+              <text
+                x="460"
+                y="144"
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="13"
+                fill="var(--accent)"
+              >
+                withOrgScope()
+              </text>
+              <text
+                x="460"
+                y="164"
+                text-anchor="middle"
+                font-family="Instrument Sans, sans-serif"
+                font-size="11.5"
+                fill="var(--ink-muted)"
+              >
+                the one tenant-scoped client
+              </text>
+
+              <path
+                d="M550,136 L620,136 L620,68 L700,68"
+                fill="none"
+                stroke="var(--ink-muted)"
+                stroke-width="1.5"
+                marker-end="url(#arrow)"
+              />
+              <path
+                d="M550,164 L620,164 L620,200 L700,200"
+                fill="none"
+                stroke="var(--ink-muted)"
+                stroke-width="1.5"
+                marker-end="url(#arrow)"
+              />
+
+              <rect
+                x="700"
+                y="46"
+                width="160"
+                height="44"
+                fill="none"
+                stroke="var(--line-strong)"
+                stroke-width="1.5"
+              />
+              <text
+                x="780"
+                y="73"
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="13"
+                fill="var(--ink)"
+              >
+                Org A's rows only
+              </text>
+
+              <rect
+                x="700"
+                y="178"
+                width="160"
+                height="44"
+                fill="none"
+                stroke="var(--line-strong)"
+                stroke-width="1.5"
+              />
+              <text
+                x="780"
+                y="205"
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="13"
+                fill="var(--ink)"
+              >
+                Org B's rows only
+              </text>
+
+              <path
+                d="M460,188 L460,248"
+                fill="none"
+                stroke="var(--ink-faint)"
+                stroke-width="1.5"
+                stroke-dasharray="4 4"
+                marker-end="url(#arrow-muted)"
+              />
+              <text
+                x="472"
+                y="222"
+                font-family="JetBrains Mono, monospace"
+                font-size="11"
+                fill="var(--ink-faint)"
+              >
+                skip it
+              </text>
+
+              <rect
+                x="350"
+                y="252"
+                width="220"
+                height="46"
+                fill="none"
+                stroke="var(--ink-faint)"
+                stroke-width="1.5"
+                stroke-dasharray="3 3"
+              />
+              <text
+                x="460"
+                y="272"
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="12"
+                fill="var(--ink-faint)"
+              >
+                0 rows
+              </text>
+              <text
+                x="460"
+                y="288"
+                text-anchor="middle"
+                font-family="Instrument Sans, sans-serif"
+                font-size="10.5"
+                fill="var(--ink-faint)"
+              >
+                never another org's
+              </text>
+            </svg>
+          </div>
+          <figcaption>
+            Every request, from every organization, passes through the same one
+            function. Skip it or get the tenant wrong, and the query comes back
+            empty — it can never return the wrong company's rows.
+          </figcaption>
+        </figure>
+
         <div class="build-body">
           <p>
-            This was built mostly solo, with AI doing most of the actual typing
-            — which meant I couldn't rely on catching every mistake the way a
-            full team's code review would. So instead of trusting vigilance, the
-            architecture is designed so entire classes of security bugs
-            <strong>can't be expressed at all.</strong>
+            That's one guardrail out of several — the same construction applies
+            everywhere a mistake would matter:
           </p>
-          <p>
-            Every database query runs through one tenant-scoped client — skip
-            it, and the query returns zero rows, never another company's data.
-            Every permission check runs through a single policy module;
-            comparing roles inline anywhere else is a lint error. Raw SQL,
-            cryptographic primitives, and non-cryptographic randomness are
-            banned outside a handful of files, audited by hand, one primitive
-            per file. And every action that changes something writes a
-            tamper-evident, hash-chained entry to an audit log — a write can't
-            be quietly altered after the fact.
-          </p>
+        </div>
+        <dl class="spec-list">
+          <div class="spec-row">
+            <dt>Permissions</dt>
+            <dd>
+              Every check runs through a single policy module; comparing roles
+              inline anywhere else is a lint error, not a style preference.
+            </dd>
+          </div>
+          <div class="spec-row">
+            <dt>Primitives</dt>
+            <dd>
+              Raw SQL, cryptography, and random-number generation are banned
+              outside a handful of files, audited by hand, one primitive per
+              file.
+            </dd>
+          </div>
+          <div class="spec-row">
+            <dt>Audit log</dt>
+            <dd>
+              Every action that changes something writes a hash-chained entry —
+              a write can't be quietly altered after the fact.
+            </dd>
+          </div>
+        </dl>
+        <div class="build-body">
           <p>
             It isn't flawless. Real bugs have been found and fixed this way —
             including a caching issue that briefly showed one account's data
@@ -815,7 +1320,7 @@
         <div class="cta-row" style="margin-top: 36px">
           <a
             class="btn btn-primary"
-            href="https://github.com/m-ishfaq/task-flow/releases/latest/download/taskflow.apk"
+            href="https://github.com/m-ishfaq/task-flow-landing/releases/latest/download/taskflow.apk"
             >Download the APK →</a
           >
           <a
@@ -835,26 +1340,104 @@
       </div>
     </section>
 
+    <section class="section" id="faq">
+      <div class="wrap">
+        <span class="eyebrow">Questions</span>
+        <h2>Frequently asked</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h3>Is TaskFlow free to use?</h3>
+            <p>
+              The live demo is free to sign up for and use right now. Formal
+              pricing hasn't shipped yet.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>Is there an iOS app?</h3>
+            <p>
+              Not yet. Development has focused on Android first, since it needed
+              no app-store account to distribute. iOS is possible but not built.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>
+              How is my organization's data kept separate from other companies
+              using TaskFlow?
+            </h3>
+            <p>
+              Every database query runs through one tenant-scoped client shared
+              by the whole codebase — see the diagram above for the actual
+              mechanism, not a marketing summary of it.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I self-host TaskFlow?</h3>
+            <p>
+              Not as a packaged product today. It runs as a single hosted,
+              multi-tenant service.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>Is this production-ready?</h3>
+            <p>
+              It's an early, honest release — the live demo and Android APK both
+              work today, there's no app-store listing yet, and real bugs are
+              still being found and fixed. See "where things actually stand"
+              above.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="closing">
       <div class="wrap">
         <h2>Five minutes to see if it's for you.</h2>
         <div class="cta-row">
           <a
-            class="btn btn-primary"
+            class="btn btn-invert-primary"
             href="__DEMO_URL__"
             target="_blank"
             rel="noopener"
             >Try the live demo →</a
           >
-          <a class="btn btn-ghost" href="#download">Download for Android</a>
+          <a class="btn btn-invert-ghost" href="#download"
+            >Download for Android</a
+          >
         </div>
       </div>
     </section>
 
     <footer>
       <div class="wrap">
-        <span>TaskFlow</span>
-        <span>Boards · Chat · Docs · Voice · People · Platform</span>
+        <div class="foot-brand">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 32 32"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle cx="8" cy="16" r="3.5" fill="currentColor" opacity="0.9" />
+            <circle cx="16" cy="16" r="4.5" fill="currentColor" />
+            <circle
+              cx="24"
+              cy="16"
+              r="5.5"
+              fill="currentColor"
+              opacity="0.85"
+            />
+          </svg>
+          TaskFlow
+        </div>
+        <nav>
+          <a href="__DEMO_URL__" target="_blank" rel="noopener">Live demo</a>
+          <a href="#download">Download APK</a>
+          <a href="#top">Back to top</a>
+        </nav>
+        <span class="foot-tag"
+          >Boards · Chat · Docs · Voice · People · Platform</span
+        >
       </div>
     </footer>
   </body>
