@@ -60,7 +60,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap"
     />
 
     <script type="application/ld+json">
@@ -129,15 +129,18 @@
     </script>
 
     <style>
-      /* ================= Tokens — lifted from packages/tokens/src/colors.ts,
-     the real palette apps/web and apps/mobile already ship. One dark world
-     by design: the product itself has no light theme, so neither does this
-     page — colors are set explicitly rather than behind a media query.
-     The accent is used sparingly and flat (never as a gradient fill) so it
-     reads as a considered signal, not a decorative pop. */
+      /* ================= Tokens — the same system the product runs on:
+     a near-black ground, one locked indigo accent for anything actionable,
+     and a "suite spectrum" — one hue per module — used strictly for
+     orientation (icons, nav tints, tag dots), never on buttons or links.
+     Layered elevation (raised/sunken surfaces, a three-step shadow ladder,
+     a 1px top-light hairline) replaces flat outlines so panels read as
+     stacked, physical surfaces instead of a wireframe. One dark world by
+     design: the product has no light theme, so neither does this page. */
       :root {
         --surface: #0a0d14;
         --surface-raised: #12161e;
+        --surface-raised-2: #171c26;
         --surface-sunken: #04060a;
         --surface-hover: #181d26;
         --ink: #e5e8ed;
@@ -150,6 +153,14 @@
         --accent-ink: #f7f8ff;
         --success: #3bb974;
         --warning: #e8a127;
+        --danger: #c92e3b;
+
+        /* Suite spectrum — additive, orientation-only accents, one per module */
+        --s-work: #6b5dcf;
+        --s-chat: #2f97ba;
+        --s-docs: #34a06c;
+        --s-calls: #d6903f;
+        --s-people: #c85f92;
 
         /* The one inverted section (closing CTA) needs its own light-on-dark
            reversed pair — this page has no light theme to borrow from, so
@@ -160,10 +171,22 @@
         --invert-muted: #5b5568;
         --invert-line: #ded9ee;
 
-        --font-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+        --radius-sm: 7px;
+        --radius-md: 11px;
+        --radius-lg: 16px;
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+        --lift-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+        --lift-2:
+          0 10px 26px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+        --lift-3:
+          0 28px 64px rgba(0, 0, 0, 0.5), 0 8px 22px rgba(0, 0, 0, 0.34);
+        --top-light: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+        --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
+        --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
         --font-mono:
-          "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+          "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
       }
 
       * {
@@ -180,6 +203,7 @@
         font-size: 17px;
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
+        font-feature-settings: "cv11", "ss01";
       }
       h1,
       h2,
@@ -229,23 +253,42 @@
         position: sticky;
         top: 0;
         z-index: 20;
-        background: color-mix(in srgb, var(--surface) 88%, transparent);
-        backdrop-filter: blur(10px);
+        background: color-mix(in srgb, var(--surface) 82%, transparent);
+        backdrop-filter: blur(14px);
         border-bottom: 1px solid var(--line);
       }
       header.top .wrap {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 64px;
+        height: 68px;
       }
       .brand {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 11px;
       }
-      .brand svg {
-        color: var(--accent);
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: var(--radius-sm);
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(
+          160deg,
+          color-mix(in srgb, var(--accent) 55%, var(--surface-raised)),
+          var(--surface-raised)
+        );
+        border: 1px solid var(--line);
+        box-shadow: var(--top-light);
+      }
+      .brand-mark svg {
+        color: var(--accent-ink);
+      }
+      footer .brand-mark {
+        width: 26px;
+        height: 26px;
       }
       .brand-name {
         font-family: var(--font-display);
@@ -269,48 +312,57 @@
         font-weight: 600;
         font-size: 15px;
         padding: 11px 20px;
-        border-radius: 4px;
+        border-radius: var(--radius-sm);
         border: 1px solid transparent;
         cursor: pointer;
         text-decoration: none;
         white-space: nowrap;
         transition:
-          transform 0.15s ease,
-          background 0.15s ease,
-          border-color 0.15s ease;
-      }
-      .btn:hover {
-        transform: translateY(-1px);
+          transform 0.18s var(--ease),
+          background 0.18s var(--ease),
+          border-color 0.18s var(--ease),
+          box-shadow 0.18s var(--ease);
       }
       .btn-primary {
         background: var(--accent);
         color: var(--accent-ink);
+        box-shadow:
+          0 2px 10px color-mix(in srgb, var(--accent) 34%, transparent),
+          var(--top-light);
       }
       .btn-primary:hover {
         background: var(--accent-hover);
+        transform: translateY(-1px);
+        box-shadow:
+          0 6px 18px color-mix(in srgb, var(--accent) 42%, transparent),
+          var(--top-light);
       }
       .btn-ghost {
-        background: transparent;
+        background: var(--surface-raised);
         color: var(--ink);
-        border-color: var(--line-strong);
+        border-color: var(--line);
+        box-shadow: var(--top-light);
       }
       .btn-ghost:hover {
         background: var(--surface-hover);
-        border-color: var(--ink-faint);
+        border-color: var(--line-strong);
+        transform: translateY(-1px);
       }
       .btn-sm {
         padding: 8px 14px;
         font-size: 13.5px;
-        border-radius: 3px;
+        border-radius: var(--radius-sm);
       }
       /* Inverted-section button variants — dark button/border on the one
          light panel, since the default btn-* pair assumes a dark ground. */
       .btn-invert-primary {
         background: var(--invert-ink);
         color: var(--invert-bg);
+        box-shadow: 0 2px 10px rgba(23, 19, 31, 0.18);
       }
       .btn-invert-primary:hover {
         background: color-mix(in srgb, var(--invert-ink) 85%, var(--accent));
+        transform: translateY(-1px);
       }
       .btn-invert-ghost {
         background: transparent;
@@ -319,15 +371,32 @@
       }
       .btn-invert-ghost:hover {
         background: color-mix(in srgb, var(--invert-bg) 90%, var(--invert-ink));
+        transform: translateY(-1px);
       }
 
-      /* ================= Hero — asymmetric: copy left, board mockup right ================= */
+      /* ================= Hero — asymmetric: copy left, product mockup right ================= */
       .hero {
-        padding: clamp(56px, 10vw, 108px) 0 clamp(56px, 9vw, 96px);
+        padding: clamp(64px, 11vw, 120px) 0 clamp(56px, 9vw, 96px);
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -220px;
+        right: -160px;
+        width: 620px;
+        height: 620px;
+        background: radial-gradient(
+          closest-side,
+          color-mix(in srgb, var(--accent) 20%, transparent),
+          transparent 70%
+        );
+        pointer-events: none;
       }
       .hero .wrap {
+        position: relative;
         display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
+        grid-template-columns: 1.1fr 0.9fr;
         gap: clamp(32px, 5vw, 64px);
         align-items: center;
       }
@@ -343,15 +412,17 @@
       .kicker {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 9px;
         font-family: var(--font-mono);
         font-size: 12.5px;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.04em;
         color: var(--ink-muted);
         border: 1px solid var(--line);
-        border-radius: 3px;
-        padding: 6px 14px;
+        border-radius: 999px;
+        padding: 7px 14px 7px 12px;
         margin-bottom: 28px;
+        background: var(--surface-raised);
+        box-shadow: var(--top-light);
       }
       .kicker b {
         color: var(--ink);
@@ -362,13 +433,26 @@
         height: 6px;
         border-radius: 50%;
         background: var(--success);
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 45%, transparent);
+        animation: pulse-ring 2.4s var(--ease) infinite;
+      }
+      @keyframes pulse-ring {
+        0% {
+          box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 45%, transparent);
+        }
+        70% {
+          box-shadow: 0 0 0 7px color-mix(in srgb, var(--success) 0%, transparent);
+        }
+        100% {
+          box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 0%, transparent);
+        }
       }
 
       h1.headline {
         font-size: clamp(36px, 4.6vw, 58px);
-        font-weight: 600;
-        letter-spacing: -0.025em;
-        line-height: 1.05;
+        font-weight: 650;
+        letter-spacing: -0.03em;
+        line-height: 1.03;
       }
       h1.headline em {
         font-style: normal;
@@ -399,53 +483,133 @@
         letter-spacing: 0.01em;
       }
 
-      /* ---- Board mockup: an honest, clearly-abstract illustration, not a
-         fake screenshot — window chrome + three columns of blank cards.
-         The single accent touch (one "active" card's left edge) is the
-         only saturated color in the whole graphic. ---- */
-      .mock-window {
-        background: var(--surface-raised);
-        border: 1px solid var(--line);
-        overflow: hidden;
+      /* ---- Product mockup: an honest, clearly-abstract illustration, not a
+         fake screenshot — real app chrome (sidebar rail, board columns)
+         built from CSS, laid out exactly like the product's own surfaces.
+         Colour is used the same way it is in the app: one hue of the suite
+         spectrum per module for orientation, with the single indigo accent
+         reserved for the one active/actionable thing on screen. ---- */
+      .hero-visual {
+        position: relative;
       }
-      .mock-bar {
+      .mock-window {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--lift-3), var(--top-light);
+      }
+      .mock-titlebar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-raised);
+      }
+      .mock-titlebar .mock-dots {
         display: flex;
         gap: 6px;
-        padding: 10px 14px;
-        border-bottom: 1px solid var(--line);
       }
-      .mock-bar span {
+      .mock-titlebar .mock-dots span {
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background: var(--line-strong);
       }
+      .mock-crumb {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--ink-faint);
+      }
+      .mock-body {
+        display: grid;
+        grid-template-columns: 108px 1fr;
+      }
+      .mock-rail {
+        border-right: 1px solid var(--line);
+        background: var(--surface-sunken);
+        padding: 12px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .mock-org {
+        width: 100%;
+        height: 22px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        background: linear-gradient(
+          160deg,
+          color-mix(in srgb, var(--accent) 45%, var(--surface-raised)),
+          var(--surface-raised)
+        );
+      }
+      .mock-nav {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 7px;
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.02em;
+        color: var(--ink-faint);
+      }
+      .mock-nav .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--suite, var(--ink-faint));
+        flex-shrink: 0;
+      }
+      .mock-nav.active {
+        color: var(--ink);
+        background: var(--surface-hover);
+      }
+      .mock-nav.active::before {
+        content: "";
+        position: absolute;
+        left: -8px;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+        border-radius: 2px;
+        background: var(--suite, var(--accent));
+      }
       .mock-board {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-        padding: 18px;
+        gap: 12px;
+        padding: 16px;
       }
       .mock-col-head {
         font-family: var(--font-mono);
-        font-size: 10px;
+        font-size: 9.5px;
         letter-spacing: 0.06em;
         text-transform: uppercase;
         color: var(--ink-faint);
-        margin-bottom: 10px;
+        margin-bottom: 9px;
       }
       .mock-card {
         height: 30px;
-        border-radius: 3px;
-        background: var(--surface-hover);
+        border-radius: var(--radius-sm);
+        background: var(--surface-raised);
         border: 1px solid var(--line);
+        box-shadow: var(--top-light);
         margin-bottom: 8px;
       }
       .mock-card.short {
-        width: 70%;
+        width: 72%;
       }
       .mock-card.active {
-        border-left: 2px solid var(--accent);
+        border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+        box-shadow:
+          0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent),
+          var(--lift-1),
+          var(--top-light);
       }
 
       /* ================= Section scaffolding ================= */
@@ -464,8 +628,8 @@
       }
       .section h2 {
         font-size: clamp(28px, 3.6vw, 38px);
-        font-weight: 600;
-        letter-spacing: -0.02em;
+        font-weight: 620;
+        letter-spacing: -0.025em;
         max-width: 24ch;
       }
       .section .lede {
@@ -476,33 +640,66 @@
         line-height: 1.7;
       }
 
-      /* ================= Feature grid ================= */
+      /* ================= Feature grid — one card per module, each carrying
+         its suite-spectrum hue as a small identity dot, never as a fill ================= */
       .grid6 {
         margin-top: 48px;
         display: grid;
-        gap: 1px;
+        gap: 14px;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        background: var(--line);
-        border: 1px solid var(--line);
-        overflow: hidden;
       }
       .feature {
+        position: relative;
         background: var(--surface-raised);
-        padding: 30px 26px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        box-shadow: var(--lift-1), var(--top-light);
+        padding: 26px 24px;
         display: flex;
         flex-direction: column;
         gap: 12px;
+        transition:
+          transform 0.2s var(--ease),
+          box-shadow 0.2s var(--ease),
+          border-color 0.2s var(--ease);
+      }
+      .feature:hover {
+        transform: translateY(-3px);
+        border-color: var(--line-strong);
+        box-shadow: var(--lift-2), var(--top-light);
+      }
+      .feature .icon {
+        width: 38px;
+        height: 38px;
+        border-radius: var(--radius-sm);
+        display: grid;
+        place-items: center;
+        background: color-mix(in srgb, var(--suite) 16%, var(--surface-raised));
+        border: 1px solid color-mix(in srgb, var(--suite) 30%, var(--line));
+        color: var(--suite);
       }
       .feature .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         font-family: var(--font-mono);
         font-size: 11px;
         letter-spacing: 0.08em;
         color: var(--ink-faint);
         text-transform: uppercase;
       }
+      .feature .tag::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--suite);
+        flex-shrink: 0;
+      }
       .feature h3 {
         font-size: 19px;
         font-weight: 600;
+        letter-spacing: -0.01em;
       }
       .feature p {
         color: var(--ink-muted);
@@ -515,22 +712,38 @@
         margin-top: 48px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 1px;
-        background: var(--line);
-        border: 1px solid var(--line);
+        gap: 14px;
       }
       .step {
-        background: var(--surface);
-        padding: 28px 26px;
-        border-top: 2px solid var(--accent);
+        background: var(--surface-raised);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        box-shadow: var(--lift-1), var(--top-light);
+        padding: 26px 24px;
+        transition:
+          transform 0.2s var(--ease),
+          box-shadow 0.2s var(--ease);
+      }
+      .step:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--lift-2), var(--top-light);
       }
       .step .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: color-mix(in srgb, var(--accent) 16%, var(--surface-raised));
+        border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+        color: var(--accent);
         font-family: var(--font-mono);
-        font-size: 13px;
-        color: var(--ink-faint);
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
       }
       .step h3 {
-        margin-top: 10px;
+        margin-top: 14px;
         font-size: 18px;
         font-weight: 600;
       }
@@ -554,7 +767,9 @@
       .diagram-scroll {
         overflow-x: auto;
         border: 1px solid var(--line);
+        border-radius: var(--radius-md);
         background: var(--surface-sunken);
+        box-shadow: var(--top-light);
       }
       .diagram-scroll svg {
         display: block;
@@ -575,14 +790,16 @@
         margin-top: 28px;
         display: flex;
         flex-direction: column;
+        gap: 2px;
         max-width: 68ch;
-        border-top: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        overflow: hidden;
       }
       .spec-row {
         display: flex;
         gap: 24px;
-        padding: 14px 0;
-        border-bottom: 1px solid var(--line);
+        padding: 16px 18px;
+        background: var(--surface-raised);
       }
       .spec-row dt {
         flex: none;
@@ -621,16 +838,15 @@
         flex-direction: column;
         gap: 2px;
         max-width: 66ch;
+        border-radius: var(--radius-md);
+        overflow: hidden;
       }
       .status-row {
         display: flex;
         gap: 14px;
         align-items: flex-start;
-        padding: 16px 4px;
-        border-bottom: 1px solid var(--line);
-      }
-      .status-row:last-child {
-        border-bottom: none;
+        padding: 18px 18px;
+        background: var(--surface-raised);
       }
       .status-icon {
         flex: none;
@@ -663,11 +879,12 @@
         font-size: 14.5px;
       }
       .status-note {
-        margin-top: 32px;
+        margin-top: 20px;
         padding: 20px 22px;
-        border-radius: 4px;
+        border-radius: var(--radius-md);
         background: var(--surface-raised);
         border: 1px solid var(--line);
+        box-shadow: var(--top-light);
         font-size: 15px;
         color: var(--ink-muted);
         max-width: 66ch;
@@ -681,12 +898,14 @@
         margin-top: 40px;
         display: flex;
         flex-direction: column;
+        gap: 2px;
         max-width: 68ch;
-        border-top: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        overflow: hidden;
       }
       .faq-item {
-        padding: 22px 0;
-        border-bottom: 1px solid var(--line);
+        padding: 22px 20px;
+        background: var(--surface-raised);
       }
       .faq-item h3 {
         font-size: 16.5px;
@@ -708,6 +927,8 @@
       }
       .closing h2 {
         font-size: clamp(26px, 4vw, 36px);
+        font-weight: 620;
+        letter-spacing: -0.025em;
         max-width: none;
         margin: 0 auto;
         color: var(--invert-ink);
@@ -737,14 +958,11 @@
       footer .foot-brand {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 9px;
         font-family: var(--font-display);
         font-weight: 600;
         font-size: 14px;
         color: var(--ink);
-      }
-      footer .foot-brand svg {
-        color: var(--accent);
       }
       footer nav {
         display: flex;
@@ -755,6 +973,7 @@
         font-size: 12.5px;
         color: var(--ink-muted);
         text-decoration: none;
+        transition: color 0.15s var(--ease);
       }
       footer nav a:hover {
         color: var(--ink);
@@ -784,6 +1003,34 @@
         .spec-row dt {
           width: auto;
         }
+        .mock-body {
+          grid-template-columns: 84px 1fr;
+        }
+      }
+
+      @media (max-width: 430px) {
+        header.top .wrap {
+          gap: 8px;
+        }
+        .brand {
+          gap: 7px;
+        }
+        .brand-name {
+          font-size: 15.5px;
+        }
+        .top-actions {
+          gap: 6px;
+        }
+        .btn-sm {
+          padding: 7px 10px;
+          font-size: 12px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        header.top .top-actions .btn-ghost {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -791,37 +1038,39 @@
     <header class="top">
       <div class="wrap">
         <div class="brand">
-          <svg
-            width="26"
-            height="26"
-            viewBox="0 0 32 32"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M8 12C8 12 12 8 16 12C20 16 24 12 24 12"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              opacity="0.5"
-            />
-            <path
-              d="M8 20C8 20 12 16 16 20C20 24 24 20 24 20"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              opacity="0.3"
-            />
-            <circle cx="8" cy="16" r="3.5" fill="currentColor" opacity="0.9" />
-            <circle cx="16" cy="16" r="4.5" fill="currentColor" />
-            <circle
-              cx="24"
-              cy="16"
-              r="5.5"
-              fill="currentColor"
-              opacity="0.85"
-            />
-          </svg>
+          <div class="brand-mark">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 32 32"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 12C8 12 12 8 16 12C20 16 24 12 24 12"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                opacity="0.5"
+              />
+              <path
+                d="M8 20C8 20 12 16 16 20C20 24 24 20 24 20"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                opacity="0.3"
+              />
+              <circle cx="8" cy="16" r="3.5" fill="currentColor" opacity="0.9" />
+              <circle cx="16" cy="16" r="4.5" fill="currentColor" />
+              <circle
+                cx="24"
+                cy="16"
+                r="5.5"
+                fill="currentColor"
+                opacity="0.85"
+              />
+            </svg>
+          </div>
           <span class="brand-name">TaskFlow</span>
         </div>
         <div class="top-actions">
@@ -867,21 +1116,44 @@
         </div>
         <div class="hero-visual" aria-hidden="true">
           <div class="mock-window">
-            <div class="mock-bar"><span></span><span></span><span></span></div>
-            <div class="mock-board">
-              <div>
-                <div class="mock-col-head">To do</div>
-                <div class="mock-card"></div>
-                <div class="mock-card short"></div>
-              </div>
-              <div>
-                <div class="mock-col-head">In progress</div>
-                <div class="mock-card active"></div>
-                <div class="mock-card"></div>
-              </div>
-              <div>
-                <div class="mock-col-head">Done</div>
-                <div class="mock-card short"></div>
+            <div class="mock-titlebar">
+              <div class="mock-dots"><span></span><span></span><span></span></div>
+              <span class="mock-crumb">Acme Inc · Sprint 24</span>
+            </div>
+            <div class="mock-body">
+              <aside class="mock-rail">
+                <div class="mock-org"></div>
+                <div class="mock-nav active" style="--suite: var(--s-work)">
+                  <span class="dot"></span>Work
+                </div>
+                <div class="mock-nav" style="--suite: var(--s-chat)">
+                  <span class="dot"></span>Chat
+                </div>
+                <div class="mock-nav" style="--suite: var(--s-docs)">
+                  <span class="dot"></span>Docs
+                </div>
+                <div class="mock-nav" style="--suite: var(--s-calls)">
+                  <span class="dot"></span>Calls
+                </div>
+                <div class="mock-nav" style="--suite: var(--s-people)">
+                  <span class="dot"></span>People
+                </div>
+              </aside>
+              <div class="mock-board">
+                <div>
+                  <div class="mock-col-head">To do</div>
+                  <div class="mock-card"></div>
+                  <div class="mock-card short"></div>
+                </div>
+                <div>
+                  <div class="mock-col-head">In progress</div>
+                  <div class="mock-card active"></div>
+                  <div class="mock-card"></div>
+                </div>
+                <div>
+                  <div class="mock-col-head">Done</div>
+                  <div class="mock-card short"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -895,10 +1167,19 @@
         <h2>Six modules. One tenant-scoped platform.</h2>
         <p class="lede">
           Not six separate tools bolted together. One data model, one permission
-          system, everything talking to everything else in real time.
+          system, everything talking to everything else in real time. Each
+          module carries its own colour for orientation, the way tabs in the
+          product itself do.
         </p>
         <div class="grid6">
-          <div class="feature">
+          <div class="feature" style="--suite: var(--s-work)">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <rect x="1.5" y="2.5" width="4.5" height="13" rx="1.5" stroke="currentColor" stroke-width="1.4" />
+                <rect x="7" y="2.5" width="4.5" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4" />
+                <rect x="12.5" y="2.5" width="4" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.4" />
+              </svg>
+            </div>
             <span class="tag">Work</span>
             <h3>Boards &amp; sprints</h3>
             <p>
@@ -906,7 +1187,12 @@
               track work the way your team already thinks about it.
             </p>
           </div>
-          <div class="feature">
+          <div class="feature" style="--suite: var(--s-chat)">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M2 4.5C2 3.4 2.9 2.5 4 2.5H14C15.1 2.5 16 3.4 16 4.5V10.5C16 11.6 15.1 12.5 14 12.5H7L3.5 15V12.5H4C2.9 12.5 2 11.6 2 10.5V4.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+              </svg>
+            </div>
             <span class="tag">Chat</span>
             <h3>Channels &amp; DMs</h3>
             <p>
@@ -914,7 +1200,13 @@
               Real-time, not polling every 30 seconds and pretending it's live.
             </p>
           </div>
-          <div class="feature">
+          <div class="feature" style="--suite: var(--s-docs)">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M4 1.5H11L14.5 5V16.5H4V1.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+                <path d="M6.5 9H12M6.5 12H12M6.5 6H9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              </svg>
+            </div>
             <span class="tag">Docs</span>
             <h3>Live collaborative pages</h3>
             <p>
@@ -923,7 +1215,12 @@
               lockouts.
             </p>
           </div>
-          <div class="feature">
+          <div class="feature" style="--suite: var(--s-calls)">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M3 3.5C3 3.5 4.5 3 5.5 5C6.3 6.6 5 7 5 7.8C5 9.3 8.7 13 10.2 13C11 13 11.4 11.7 13 12.5C15 13.5 14.5 15 14.5 15C14.5 15 12.8 16.5 10 15.3C6.8 14 4 11.2 2.7 8C1.5 5.2 3 3.5 3 3.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+              </svg>
+            </div>
             <span class="tag">Voice &amp; Messaging</span>
             <h3>Calls &amp; SMS, built in</h3>
             <p>
@@ -932,7 +1229,15 @@
               widget.
             </p>
           </div>
-          <div class="feature">
+          <div class="feature" style="--suite: var(--s-people)">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <circle cx="6.5" cy="6" r="2.5" stroke="currentColor" stroke-width="1.4" />
+                <circle cx="12.5" cy="7.5" r="2" stroke="currentColor" stroke-width="1.4" />
+                <path d="M2 15C2 12 4 10.5 6.5 10.5C9 10.5 11 12 11 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                <path d="M11.5 11C13.8 11.2 15 12.7 15 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              </svg>
+            </div>
             <span class="tag">People</span>
             <h3>Org directory</h3>
             <p>
@@ -940,7 +1245,13 @@
               your other tools assume you already have somewhere else.
             </p>
           </div>
-          <div class="feature">
+          <div class="feature" style="--suite: var(--accent)">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M9 1.5L15.5 4.2V8.6C15.5 12.4 12.9 15.7 9 16.5C5.1 15.7 2.5 12.4 2.5 8.6V4.2L9 1.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+                <path d="M6.3 9L8.2 10.8L11.7 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
             <span class="tag">Platform</span>
             <h3>Admin &amp; audit</h3>
             <p>
@@ -1035,6 +1346,7 @@
                 y="46"
                 width="140"
                 height="44"
+                rx="8"
                 fill="none"
                 stroke="var(--line-strong)"
                 stroke-width="1.5"
@@ -1043,7 +1355,7 @@
                 x="90"
                 y="73"
                 text-anchor="middle"
-                font-family="JetBrains Mono, monospace"
+                font-family="Geist Mono, monospace"
                 font-size="13"
                 fill="var(--ink)"
               >
@@ -1055,6 +1367,7 @@
                 y="178"
                 width="140"
                 height="44"
+                rx="8"
                 fill="none"
                 stroke="var(--line-strong)"
                 stroke-width="1.5"
@@ -1063,7 +1376,7 @@
                 x="90"
                 y="205"
                 text-anchor="middle"
-                font-family="JetBrains Mono, monospace"
+                font-family="Geist Mono, monospace"
                 font-size="13"
                 fill="var(--ink)"
               >
@@ -1090,6 +1403,7 @@
                 y="112"
                 width="180"
                 height="76"
+                rx="10"
                 fill="none"
                 stroke="var(--accent)"
                 stroke-width="2"
@@ -1098,7 +1412,7 @@
                 x="460"
                 y="144"
                 text-anchor="middle"
-                font-family="JetBrains Mono, monospace"
+                font-family="Geist Mono, monospace"
                 font-size="13"
                 fill="var(--accent)"
               >
@@ -1108,7 +1422,7 @@
                 x="460"
                 y="164"
                 text-anchor="middle"
-                font-family="Instrument Sans, sans-serif"
+                font-family="Geist, sans-serif"
                 font-size="11.5"
                 fill="var(--ink-muted)"
               >
@@ -1135,6 +1449,7 @@
                 y="46"
                 width="160"
                 height="44"
+                rx="8"
                 fill="none"
                 stroke="var(--line-strong)"
                 stroke-width="1.5"
@@ -1143,7 +1458,7 @@
                 x="780"
                 y="73"
                 text-anchor="middle"
-                font-family="JetBrains Mono, monospace"
+                font-family="Geist Mono, monospace"
                 font-size="13"
                 fill="var(--ink)"
               >
@@ -1155,6 +1470,7 @@
                 y="178"
                 width="160"
                 height="44"
+                rx="8"
                 fill="none"
                 stroke="var(--line-strong)"
                 stroke-width="1.5"
@@ -1163,7 +1479,7 @@
                 x="780"
                 y="205"
                 text-anchor="middle"
-                font-family="JetBrains Mono, monospace"
+                font-family="Geist Mono, monospace"
                 font-size="13"
                 fill="var(--ink)"
               >
@@ -1181,7 +1497,7 @@
               <text
                 x="472"
                 y="222"
-                font-family="JetBrains Mono, monospace"
+                font-family="Geist Mono, monospace"
                 font-size="11"
                 fill="var(--ink-faint)"
               >
@@ -1193,6 +1509,7 @@
                 y="252"
                 width="220"
                 height="46"
+                rx="8"
                 fill="none"
                 stroke="var(--ink-faint)"
                 stroke-width="1.5"
@@ -1202,7 +1519,7 @@
                 x="460"
                 y="272"
                 text-anchor="middle"
-                font-family="JetBrains Mono, monospace"
+                font-family="Geist Mono, monospace"
                 font-size="12"
                 fill="var(--ink-faint)"
               >
@@ -1212,7 +1529,7 @@
                 x="460"
                 y="288"
                 text-anchor="middle"
-                font-family="Instrument Sans, sans-serif"
+                font-family="Geist, sans-serif"
                 font-size="10.5"
                 fill="var(--ink-faint)"
               >
@@ -1331,16 +1648,16 @@
           <div class="faq-item">
             <h3>Is TaskFlow free to use?</h3>
             <p>
-              TaskFlow offers a free way to get started. You can create an organization, 
-              invite your team, and explore the core collaboration features. 
-              Available plans and limits are managed directly from your organization settings 
+              TaskFlow offers a free way to get started. You can create an organization,
+              invite your team, and explore the core collaboration features.
+              Available plans and limits are managed directly from your organization settings
               and may evolve as the product develops.
             </p>
           </div>
           <div class="faq-item">
             <h3>Is there an iOS app?</h3>
             <p>
-              An Android app is already available and can be downloaded directly from TaskFlow. 
+              An Android app is already available and can be downloaded directly from TaskFlow.
               The iOS app is currently in development and will be available in a future release.
             </p>
           </div>
@@ -1350,27 +1667,27 @@
               using TaskFlow?
             </h3>
             <p>
-              TaskFlow is built as a multi-tenant application with organization-level data isolation. 
-              Every authenticated request carries an organization context, and access to workspace resources 
-              is scoped against that context before data is returned or modified. Authorization is enforced 
-              independently of the UI, so users cannot access resources belonging to another organization 
+              TaskFlow is built as a multi-tenant application with organization-level data isolation.
+              Every authenticated request carries an organization context, and access to workspace resources
+              is scoped against that context before data is returned or modified. Authorization is enforced
+              independently of the UI, so users cannot access resources belonging to another organization
               simply by changing an ID or request parameter.
             </p>
           </div>
           <div class="faq-item">
             <h3>Can I self-host TaskFlow?</h3>
             <p>
-              TaskFlow is currently offered as a hosted service and is not distributed as a self-hosted package. 
-              This allows us to manage infrastructure, deployments, security updates, and the multi-tenant environment 
+              TaskFlow is currently offered as a hosted service and is not distributed as a self-hosted package.
+              This allows us to manage infrastructure, deployments, security updates, and the multi-tenant environment
               centrally while keeping the product consistent for all organizations.
             </p>
           </div>
           <div class="faq-item">
             <h3>Is this production-ready?</h3>
             <p>
-              TaskFlow is live and designed around production-oriented requirements rather than being a simple prototype. 
-              It includes organization-level tenant isolation, centralized authorization checks, authentication and session security, 
-              audit logging, and controlled access to workspace resources. The platform is actively evolving, so new capabilities and 
+              TaskFlow is live and designed around production-oriented requirements rather than being a simple prototype.
+              It includes organization-level tenant isolation, centralized authorization checks, authentication and session security,
+              audit logging, and controlled access to workspace resources. The platform is actively evolving, so new capabilities and
               refinements are continuously being introduced.
             </p>
           </div>
@@ -1399,23 +1716,13 @@
     <footer>
       <div class="wrap">
         <div class="foot-brand">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 32 32"
-            fill="none"
-            aria-hidden="true"
-          >
-            <circle cx="8" cy="16" r="3.5" fill="currentColor" opacity="0.9" />
-            <circle cx="16" cy="16" r="4.5" fill="currentColor" />
-            <circle
-              cx="24"
-              cy="16"
-              r="5.5"
-              fill="currentColor"
-              opacity="0.85"
-            />
-          </svg>
+          <div class="brand-mark">
+            <svg width="14" height="14" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <circle cx="8" cy="16" r="3.5" fill="currentColor" opacity="0.9" />
+              <circle cx="16" cy="16" r="4.5" fill="currentColor" />
+              <circle cx="24" cy="16" r="5.5" fill="currentColor" opacity="0.85" />
+            </svg>
+          </div>
           TaskFlow
         </div>
         <nav>
