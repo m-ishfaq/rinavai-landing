@@ -268,6 +268,7 @@
         display: flex;
         align-items: center;
         gap: 11px;
+        text-decoration: none;
       }
       .brand-mark {
         width: 34px;
@@ -1153,6 +1154,7 @@
         font-weight: 600;
         font-size: 14px;
         color: var(--ink);
+        text-decoration: none;
       }
       footer nav {
         display: flex;
@@ -1227,12 +1229,12 @@
   <body>
     <header class="top">
       <div class="wrap">
-        <div class="brand">
+        <a class="brand" href="#top" aria-label="Rinavai home">
           <div class="brand-mark">
             <img src="rinavai.png" alt="Rinavai logo" width="22" height="22" />
           </div>
           <span class="brand-name">Rinavai</span>
-        </div>
+        </a>
         <div class="top-actions">
           <a
             class="btn btn-ghost btn-sm"
@@ -1970,12 +1972,12 @@
 
     <footer>
       <div class="wrap">
-        <div class="foot-brand">
+        <a class="foot-brand" href="#top" aria-label="Rinavai home">
           <div class="brand-mark">
             <img src="rinavai.png" alt="" width="16" height="16" />
           </div>
           Rinavai
-        </div>
+        </a>
         <nav>
           <a
             href="https://taskflow-demo.duckdns.org/"
