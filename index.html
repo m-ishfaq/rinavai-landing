@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0a0d14" />
+    <meta name="theme-color" content="#171009" />
 
-    <title>TaskFlow: Where work actually flows</title>
+    <title>Rinaval: Where teams move together</title>
     <meta
       name="description"
-      content="Boards, chat, real-time collaborative docs, and in-app voice, all in one team collaboration platform. Built solo and security-first. Try the live demo or download the Android APK."
+      content="Boards, chat, real-time docs, in-app voice, and an AI assistant that does the work, all in one team collaboration platform. Built solo and security-first. Try the live demo or download the Android APK."
     />
     <link
       rel="canonical"
@@ -18,15 +18,15 @@
 
     <!-- Open Graph — link previews on Slack, Discord, LinkedIn, Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="TaskFlow" />
+    <meta property="og:site_name" content="Rinaval" />
     <meta
       property="og:url"
       content="https://m-ishfaq.github.io/task-flow-landing/"
     />
-    <meta property="og:title" content="TaskFlow: Where work actually flows" />
+    <meta property="og:title" content="Rinaval: Where teams move together" />
     <meta
       property="og:description"
-      content="Boards, chat, real-time collaborative docs, and in-app voice, all in one team collaboration platform. Built solo and security-first."
+      content="Boards, chat, real-time docs, in-app voice, and an AI assistant that does the work, all in one team collaboration platform. Built solo and security-first."
     />
     <meta
       property="og:image"
@@ -36,25 +36,23 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="TaskFlow: where work actually flows"
+      content="Rinaval: where teams move together"
     />
 
     <!-- Twitter/X card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TaskFlow: Where work actually flows" />
+    <meta name="twitter:title" content="Rinaval: Where teams move together" />
     <meta
       name="twitter:description"
-      content="Boards, chat, real-time collaborative docs, and in-app voice, all in one team collaboration platform. Built solo and security-first."
+      content="Boards, chat, real-time docs, in-app voice, and an AI assistant that does the work, all in one team collaboration platform. Built solo and security-first."
     />
     <meta
       name="twitter:image"
       content="https://m-ishfaq.github.io/task-flow-landing/og-image.png"
     />
 
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M8 12C8 12 12 8 16 12C20 16 24 12 24 12' stroke='%236b5dcf' stroke-width='2.5' stroke-linecap='round' opacity='.5'/%3E%3Cpath d='M8 20C8 20 12 16 16 20C20 24 24 20 24 20' stroke='%236b5dcf' stroke-width='2.5' stroke-linecap='round' opacity='.3'/%3E%3Ccircle cx='8' cy='16' r='3.5' fill='%236b5dcf' opacity='.9'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%236b5dcf'/%3E%3Ccircle cx='24' cy='16' r='5.5' fill='%236b5dcf' opacity='.85'/%3E%3C/svg%3E"
-    />
+    <link rel="icon" type="image/png" href="rinavai.png" />
+    <link rel="apple-touch-icon" href="rinavai.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -67,9 +65,9 @@
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "TaskFlow",
+        "name": "Rinaval",
         "url": "https://m-ishfaq.github.io/task-flow-landing/",
-        "description": "Boards, chat, real-time collaborative docs, and in-app voice, all in one multi-tenant work platform.",
+        "description": "Boards, chat, real-time collaborative docs, in-app voice, and an AI assistant that does the work, all in one multi-tenant work platform.",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Android, Web",
         "offers": {
@@ -86,7 +84,7 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Is TaskFlow free to use?",
+            "name": "Is Rinaval free to use?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Sign up and check your org settings for current plans, not this page."
@@ -102,7 +100,7 @@
           },
           {
             "@type": "Question",
-            "name": "How is my organization's data kept separate from other companies using TaskFlow?",
+            "name": "How is my organization's data kept separate from other companies using Rinaval?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Every request is scoped to your organization automatically. There's no path for one org's data to reach another's."
@@ -110,7 +108,7 @@
           },
           {
             "@type": "Question",
-            "name": "Can I self-host TaskFlow?",
+            "name": "Can I self-host Rinaval?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Not today. It runs as one hosted, multi-tenant service rather than a self-hosted package."
@@ -138,38 +136,34 @@
      stacked, physical surfaces instead of a wireframe. One dark world by
      design: the product has no light theme, so neither does this page. */
       :root {
-        --surface: #0a0d14;
-        --surface-raised: #12161e;
-        --surface-raised-2: #171c26;
-        --surface-sunken: #04060a;
-        --surface-hover: #181d26;
-        --ink: #e5e8ed;
-        --ink-muted: #8d929c;
-        --ink-faint: #70757d;
-        --line: #26292f;
-        --line-strong: #373b42;
-        --accent: #6b5dcf;
-        --accent-hover: #5d4dbe;
-        --accent-ink: #f7f8ff;
-        --success: #3bb974;
+        --surface: #171009;
+        --surface-raised: #221711;
+        --surface-raised-2: #2b1e15;
+        --surface-sunken: #100a06;
+        --surface-hover: #2a1c12;
+        --ink: #efe7dc;
+        --ink-muted: #a99b8b;
+        --ink-faint: #7e6f5f;
+        --line: #362818;
+        --line-strong: #4d3a27;
+        --accent: #14b8a1;
+        --accent-hover: #0da591;
+        --accent-ink: #05231d;
+        --success: #48c078;
         --warning: #e8a127;
-        --danger: #c92e3b;
+        --danger: #e5484d;
 
         /* Suite spectrum — additive, orientation-only accents, one per module */
-        --s-work: #6b5dcf;
-        --s-chat: #2f97ba;
-        --s-docs: #34a06c;
-        --s-calls: #d6903f;
-        --s-people: #c85f92;
+        --s-work: #14b8a1;
+        --s-chat: #3d9df0;
+        --s-docs: #48c078;
+        --s-calls: #f09f3f;
+        --s-people: #e06c9f;
+        --s-ai: #a78bfa;
 
-        /* The one inverted section (closing CTA) needs its own light-on-dark
-           reversed pair — this page has no light theme to borrow from, so
-           these are declared once here rather than faked with opacity
-           tricks on the dark tokens above. */
-        --invert-bg: #f4f2fb;
-        --invert-ink: #17131f;
-        --invert-muted: #5b5568;
-        --invert-line: #ded9ee;
+        /* Premium glow pair — the teal that bleeds into the dark */
+        --glow: color-mix(in srgb, var(--accent) 24%, transparent);
+        --glow-strong: color-mix(in srgb, var(--accent) 45%, transparent);
 
         --radius-sm: 7px;
         --radius-md: 11px;
@@ -220,6 +214,20 @@
       }
       ::selection {
         background: color-mix(in srgb, var(--accent) 40%, transparent);
+      }
+      ::-webkit-scrollbar {
+        width: 11px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--surface-sunken);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--line-strong);
+        border-radius: 8px;
+        border: 3px solid var(--surface-sunken);
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--ink-faint);
       }
       :focus-visible {
         outline: 2px solid var(--accent);
@@ -283,8 +291,11 @@
         border: 1px solid var(--line);
         box-shadow: var(--top-light);
       }
-      .brand-mark svg {
-        color: var(--accent-ink);
+      .brand-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--radius-sm);
       }
       footer .brand-mark {
         width: 26px;
@@ -353,45 +364,41 @@
         font-size: 13.5px;
         border-radius: var(--radius-sm);
       }
-      /* Inverted-section button variants — dark button/border on the one
-         light panel, since the default btn-* pair assumes a dark ground. */
-      .btn-invert-primary {
-        background: var(--invert-ink);
-        color: var(--invert-bg);
-        box-shadow: 0 2px 10px rgba(23, 19, 31, 0.18);
-      }
-      .btn-invert-primary:hover {
-        background: color-mix(in srgb, var(--invert-ink) 85%, var(--accent));
-        transform: translateY(-1px);
-      }
-      .btn-invert-ghost {
-        background: transparent;
-        color: var(--invert-ink);
-        border-color: var(--invert-line);
-      }
-      .btn-invert-ghost:hover {
-        background: color-mix(in srgb, var(--invert-bg) 90%, var(--invert-ink));
-        transform: translateY(-1px);
-      }
+
 
       /* ================= Hero — asymmetric: copy left, product mockup right ================= */
       .hero {
         padding: clamp(64px, 11vw, 120px) 0 clamp(56px, 9vw, 96px);
         overflow: hidden;
       }
-      .hero::before {
+      .hero::before,
+      .hero::after {
         content: "";
         position: absolute;
-        top: -220px;
-        right: -160px;
-        width: 620px;
-        height: 620px;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .hero::before {
+        top: -260px;
+        right: -180px;
+        width: 720px;
+        height: 720px;
         background: radial-gradient(
           closest-side,
-          color-mix(in srgb, var(--accent) 20%, transparent),
+          color-mix(in srgb, var(--accent) 22%, transparent),
           transparent 70%
         );
-        pointer-events: none;
+      }
+      .hero::after {
+        bottom: -320px;
+        left: -260px;
+        width: 640px;
+        height: 640px;
+        background: radial-gradient(
+          closest-side,
+          color-mix(in srgb, var(--accent) 12%, transparent),
+          transparent 72%
+        );
       }
       .hero .wrap {
         position: relative;
@@ -405,7 +412,7 @@
           grid-template-columns: 1fr;
         }
         .hero-visual {
-          order: -1;
+          margin-top: 8px;
         }
       }
 
@@ -456,7 +463,16 @@
       }
       h1.headline em {
         font-style: normal;
-        color: var(--accent);
+        background: linear-gradient(
+          100deg,
+          #2dd4bc 0%,
+          var(--accent) 55%,
+          #3ecfb8 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
       }
       .sub {
         margin-top: 22px;
@@ -494,11 +510,79 @@
       }
       .mock-window {
         position: relative;
-        background: var(--surface);
-        border: 1px solid var(--line);
+        background: linear-gradient(180deg, var(--surface-raised), var(--surface) 58%);
+        border: 1px solid var(--line-strong);
         border-radius: var(--radius-lg);
         overflow: hidden;
-        box-shadow: var(--lift-3), var(--top-light);
+        box-shadow:
+          0 40px 90px rgba(0, 0, 0, 0.55),
+          0 0 70px var(--glow),
+          var(--top-light);
+      }
+      .mock-window::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(
+          120% 60% at 50% -10%,
+          color-mix(in srgb, var(--accent) 10%, transparent),
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+
+      /* Floating proof chips — the product's assistant, shown working */
+      .float-chip {
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        letter-spacing: 0.02em;
+        color: var(--ink);
+        background: color-mix(in srgb, var(--surface-raised) 88%, transparent);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--lift-2), var(--top-light);
+        backdrop-filter: blur(8px);
+        animation: floaty 6s var(--ease) infinite;
+      }
+      .float-chip .spark {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 10px var(--glow-strong);
+      }
+      .chip-ai {
+        top: 26%;
+        left: -34px;
+      }
+      .chip-card {
+        bottom: 14%;
+        right: -26px;
+        animation-delay: -3s;
+      }
+      @keyframes floaty {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-9px);
+        }
+      }
+      @media (max-width: 860px) {
+        .chip-ai {
+          left: 6px;
+        }
+        .chip-card {
+          right: 6px;
+        }
       }
       .mock-titlebar {
         display: flex;
@@ -594,15 +678,51 @@
         margin-bottom: 9px;
       }
       .mock-card {
-        height: 30px;
+        position: relative;
+        overflow: hidden;
         border-radius: var(--radius-sm);
         background: var(--surface-raised);
         border: 1px solid var(--line);
         box-shadow: var(--top-light);
+        padding: 7px 9px 8px 11px;
         margin-bottom: 8px;
       }
-      .mock-card.short {
-        width: 72%;
+      .mock-card .bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--bar, var(--line-strong));
+      }
+      .mock-card b {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 8.5px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: var(--ink-faint);
+      }
+      .mock-card .lbl {
+        display: block;
+        height: 5px;
+        width: 78%;
+        margin-top: 6px;
+        border-radius: 3px;
+        background: var(--line-strong);
+        opacity: 0.75;
+      }
+      .mock-card .av {
+        position: absolute;
+        right: 7px;
+        top: 7px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--av, var(--s-people));
+      }
+      .mock-card.short .lbl {
+        width: 52%;
       }
       .mock-card.active {
         border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
@@ -663,10 +783,30 @@
           box-shadow 0.2s var(--ease),
           border-color 0.2s var(--ease);
       }
+      .feature::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: radial-gradient(
+          90% 70% at 50% 0%,
+          color-mix(in srgb, var(--suite) 12%, transparent),
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.25s var(--ease);
+        pointer-events: none;
+      }
       .feature:hover {
         transform: translateY(-3px);
-        border-color: var(--line-strong);
-        box-shadow: var(--lift-2), var(--top-light);
+        border-color: color-mix(in srgb, var(--suite) 45%, var(--line));
+        box-shadow:
+          var(--lift-2),
+          0 0 34px color-mix(in srgb, var(--suite) 16%, transparent),
+          var(--top-light);
+      }
+      .feature:hover::before {
+        opacity: 1;
       }
       .feature .icon {
         width: 38px;
@@ -677,6 +817,9 @@
         background: color-mix(in srgb, var(--suite) 16%, var(--surface-raised));
         border: 1px solid color-mix(in srgb, var(--suite) 30%, var(--line));
         color: var(--suite);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          0 0 18px color-mix(in srgb, var(--suite) 14%, transparent);
       }
       .feature .tag {
         display: inline-flex;
@@ -726,7 +869,10 @@
       }
       .step:hover {
         transform: translateY(-3px);
-        box-shadow: var(--lift-2), var(--top-light);
+        box-shadow:
+          var(--lift-2),
+          0 0 30px var(--glow),
+          var(--top-light);
       }
       .step .num {
         display: inline-flex;
@@ -738,6 +884,9 @@
         background: color-mix(in srgb, var(--accent) 16%, var(--surface-raised));
         border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
         color: var(--accent);
+        box-shadow:
+          0 0 16px color-mix(in srgb, var(--accent) 22%, transparent),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
         font-family: var(--font-mono);
         font-size: 12px;
         font-variant-numeric: tabular-nums;
@@ -918,28 +1067,63 @@
         line-height: 1.65;
       }
 
-      /* ================= Closing CTA — the one inverted section ================= */
+      /* ================= Closing CTA — dark panel with a teal heart ================= */
       .closing {
-        padding: clamp(72px, 10vw, 120px) 0;
+        padding: clamp(64px, 9vw, 110px) 0;
         text-align: center;
-        background: var(--invert-bg);
-        color: var(--invert-ink);
+      }
+      .closing .wrap {
+        position: relative;
+        max-width: 960px;
+        padding: clamp(44px, 6vw, 72px) clamp(24px, 5vw, 64px);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--line-strong);
+        background:
+          radial-gradient(
+            120% 140% at 50% 0%,
+            color-mix(in srgb, var(--accent) 13%, transparent),
+            transparent 55%
+          ),
+          linear-gradient(180deg, var(--surface-raised-2), var(--surface-raised));
+        box-shadow:
+          0 34px 80px rgba(0, 0, 0, 0.5),
+          0 0 90px var(--glow),
+          var(--top-light);
       }
       .closing h2 {
-        font-size: clamp(26px, 4vw, 36px);
-        font-weight: 620;
+        font-size: clamp(26px, 4vw, 38px);
+        font-weight: 650;
         letter-spacing: -0.025em;
-        max-width: none;
+        max-width: 22ch;
         margin: 0 auto;
-        color: var(--invert-ink);
+        color: var(--ink);
       }
       .closing .cta-row {
         justify-content: center;
-        margin-top: 32px;
+        margin-top: 34px;
       }
-      .closing .cta-note {
-        text-align: center;
-        color: var(--invert-muted);
+
+      /* ================= Scroll reveal — buttery, reduced-motion safe ================= */
+      @media (prefers-reduced-motion: no-preference) {
+        .reveal {
+          opacity: 0;
+          transform: translateY(16px);
+          transition:
+            opacity 0.7s var(--ease),
+            transform 0.7s var(--ease);
+        }
+        .reveal.in {
+          opacity: 1;
+          transform: none;
+        }
+        .feature.reveal,
+        .step.reveal {
+          transition:
+            opacity 0.7s var(--ease),
+            transform 0.7s var(--ease),
+            box-shadow 0.2s var(--ease),
+            border-color 0.2s var(--ease);
+        }
       }
 
       /* ================= Footer ================= */
@@ -1039,39 +1223,9 @@
       <div class="wrap">
         <div class="brand">
           <div class="brand-mark">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 32 32"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M8 12C8 12 12 8 16 12C20 16 24 12 24 12"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                opacity="0.5"
-              />
-              <path
-                d="M8 20C8 20 12 16 16 20C20 24 24 20 24 20"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                opacity="0.3"
-              />
-              <circle cx="8" cy="16" r="3.5" fill="currentColor" opacity="0.9" />
-              <circle cx="16" cy="16" r="4.5" fill="currentColor" />
-              <circle
-                cx="24"
-                cy="16"
-                r="5.5"
-                fill="currentColor"
-                opacity="0.85"
-              />
-            </svg>
+            <img src="rinavai.png" alt="Rinaval logo" width="22" height="22" />
           </div>
-          <span class="brand-name">TaskFlow</span>
+          <span class="brand-name">Rinaval</span>
         </div>
         <div class="top-actions">
           <a
@@ -1093,11 +1247,11 @@
             ><span class="dot"></span><b>Live demo running now</b> · sign up, no
             invite needed</span
           >
-          <h1 class="headline">Where work actually <em>flows</em>.</h1>
+          <h1 class="headline">Where teams <em>move</em> together.</h1>
           <p class="sub">
-            Boards, chat, real-time docs, and voice, all in one team
-            collaboration platform. Built solo, security-first, with AI doing
-            most of the typing.
+            Boards, chat, docs, calls, and an AI assistant that does the
+            work, all in one team collaboration platform. Built solo,
+            security-first.
           </p>
           <div class="cta-row">
             <a
@@ -1115,16 +1269,22 @@
           </p>
         </div>
         <div class="hero-visual" aria-hidden="true">
+          <div class="float-chip chip-ai">
+            <span class="spark"></span>Assistant created WEB-142
+          </div>
+          <div class="float-chip chip-card">
+            <span class="spark"></span>Card moved → Done
+          </div>
           <div class="mock-window">
             <div class="mock-titlebar">
               <div class="mock-dots"><span></span><span></span><span></span></div>
-              <span class="mock-crumb">Acme Inc · Sprint 24</span>
+              <span class="mock-crumb">Acme Corp · Sprint 4 · Board</span>
             </div>
             <div class="mock-body">
               <aside class="mock-rail">
                 <div class="mock-org"></div>
                 <div class="mock-nav active" style="--suite: var(--s-work)">
-                  <span class="dot"></span>Work
+                  <span class="dot"></span>My tasks
                 </div>
                 <div class="mock-nav" style="--suite: var(--s-chat)">
                   <span class="dot"></span>Chat
@@ -1138,21 +1298,43 @@
                 <div class="mock-nav" style="--suite: var(--s-people)">
                   <span class="dot"></span>People
                 </div>
+                <div class="mock-nav" style="--suite: var(--s-ai)">
+                  <span class="dot"></span>Assistant
+                </div>
               </aside>
               <div class="mock-board">
                 <div>
                   <div class="mock-col-head">To do</div>
-                  <div class="mock-card"></div>
-                  <div class="mock-card short"></div>
+                  <div class="mock-card" style="--bar: var(--warning)">
+                    <b>WEB-345</b><i class="lbl"></i>
+                  </div>
+                  <div class="mock-card short" style="--bar: var(--success)">
+                    <b>WEB-347</b><i class="lbl"></i>
+                  </div>
+                  <div class="mock-card" style="--bar: var(--danger)">
+                    <b>WEB-349</b><i class="lbl"></i>
+                  </div>
                 </div>
                 <div>
                   <div class="mock-col-head">In progress</div>
-                  <div class="mock-card active"></div>
-                  <div class="mock-card"></div>
+                  <div class="mock-card active" style="--bar: var(--danger)">
+                    <b>WEB-66</b><i class="lbl"></i><span class="av" style="--av: var(--s-people)"></span>
+                  </div>
+                  <div class="mock-card" style="--bar: var(--warning)">
+                    <b>WEB-67</b><i class="lbl"></i><span class="av" style="--av: var(--s-chat)"></span>
+                  </div>
+                  <div class="mock-card" style="--bar: var(--success)">
+                    <b>WEB-69</b><i class="lbl"></i>
+                  </div>
                 </div>
                 <div>
                   <div class="mock-col-head">Done</div>
-                  <div class="mock-card short"></div>
+                  <div class="mock-card short" style="--bar: var(--success)">
+                    <b>WEB-138</b><i class="lbl"></i>
+                  </div>
+                  <div class="mock-card" style="--bar: var(--success)">
+                    <b>WEB-142</b><i class="lbl"></i>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1229,20 +1411,18 @@
               widget.
             </p>
           </div>
-          <div class="feature" style="--suite: var(--s-people)">
+          <div class="feature" style="--suite: var(--s-ai)">
             <div class="icon">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <circle cx="6.5" cy="6" r="2.5" stroke="currentColor" stroke-width="1.4" />
-                <circle cx="12.5" cy="7.5" r="2" stroke="currentColor" stroke-width="1.4" />
-                <path d="M2 15C2 12 4 10.5 6.5 10.5C9 10.5 11 12 11 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-                <path d="M11.5 11C13.8 11.2 15 12.7 15 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                <path d="M9 1.5L10.6 6.2C10.8 6.8 11.2 7.2 11.8 7.4L16.5 9L11.8 10.6C11.2 10.8 10.8 11.2 10.6 11.8L9 16.5L7.4 11.8C7.2 11.2 6.8 10.8 6.2 10.6L1.5 9L6.2 7.4C6.8 7.2 7.2 6.8 7.4 6.2L9 1.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
               </svg>
             </div>
-            <span class="tag">People</span>
-            <h3>Org directory</h3>
+            <span class="tag">Assistant</span>
+            <h3>AI that does the work</h3>
             <p>
-              Who's who, who reports to whom, teams and roles. The org chart
-              your other tools assume you already have somewhere else.
+              Ask what's overdue, or have it create the card, move it, and
+              summarize the PR. Real actions with real tools — and every
+              write waits for your OK first.
             </p>
           </div>
           <div class="feature" style="--suite: var(--accent)">
@@ -1646,9 +1826,9 @@
         <h2>Frequently asked</h2>
         <div class="faq-list">
           <div class="faq-item">
-            <h3>Is TaskFlow free to use?</h3>
+            <h3>Is Rinaval free to use?</h3>
             <p>
-              TaskFlow offers a free way to get started. You can create an organization,
+              Rinaval offers a free way to get started. You can create an organization,
               invite your team, and explore the core collaboration features.
               Available plans and limits are managed directly from your organization settings
               and may evolve as the product develops.
@@ -1657,17 +1837,17 @@
           <div class="faq-item">
             <h3>Is there an iOS app?</h3>
             <p>
-              An Android app is already available and can be downloaded directly from TaskFlow.
+              An Android app is already available and can be downloaded directly from Rinaval.
               The iOS app is currently in development and will be available in a future release.
             </p>
           </div>
           <div class="faq-item">
             <h3>
               How is my organization's data kept separate from other companies
-              using TaskFlow?
+              using Rinaval?
             </h3>
             <p>
-              TaskFlow is built as a multi-tenant application with organization-level data isolation.
+              Rinaval is built as a multi-tenant application with organization-level data isolation.
               Every authenticated request carries an organization context, and access to workspace resources
               is scoped against that context before data is returned or modified. Authorization is enforced
               independently of the UI, so users cannot access resources belonging to another organization
@@ -1675,9 +1855,9 @@
             </p>
           </div>
           <div class="faq-item">
-            <h3>Can I self-host TaskFlow?</h3>
+            <h3>Can I self-host Rinaval?</h3>
             <p>
-              TaskFlow is currently offered as a hosted service and is not distributed as a self-hosted package.
+              Rinaval is currently offered as a hosted service and is not distributed as a self-hosted package.
               This allows us to manage infrastructure, deployments, security updates, and the multi-tenant environment
               centrally while keeping the product consistent for all organizations.
             </p>
@@ -1685,7 +1865,7 @@
           <div class="faq-item">
             <h3>Is this production-ready?</h3>
             <p>
-              TaskFlow is live and designed around production-oriented requirements rather than being a simple prototype.
+              Rinaval is live and designed around production-oriented requirements rather than being a simple prototype.
               It includes organization-level tenant isolation, centralized authorization checks, authentication and session security,
               audit logging, and controlled access to workspace resources. The platform is actively evolving, so new capabilities and
               refinements are continuously being introduced.
@@ -1700,15 +1880,13 @@
         <h2>Five minutes to see if it's for you.</h2>
         <div class="cta-row">
           <a
-            class="btn btn-invert-primary"
+            class="btn btn-primary"
             href="__DEMO_URL__"
             target="_blank"
             rel="noopener"
             >Try the live demo →</a
           >
-          <a class="btn btn-invert-ghost" href="#download"
-            >Download for Android</a
-          >
+          <a class="btn btn-ghost" href="#download">Download for Android</a>
         </div>
       </div>
     </section>
@@ -1717,13 +1895,9 @@
       <div class="wrap">
         <div class="foot-brand">
           <div class="brand-mark">
-            <svg width="14" height="14" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <circle cx="8" cy="16" r="3.5" fill="currentColor" opacity="0.9" />
-              <circle cx="16" cy="16" r="4.5" fill="currentColor" />
-              <circle cx="24" cy="16" r="5.5" fill="currentColor" opacity="0.85" />
-            </svg>
+            <img src="rinavai.png" alt="" width="16" height="16" />
           </div>
-          TaskFlow
+          Rinaval
         </div>
         <nav>
           <a href="__DEMO_URL__" target="_blank" rel="noopener">Live demo</a>
@@ -1731,9 +1905,50 @@
           <a href="#top">Back to top</a>
         </nav>
         <span class="foot-tag"
-          >Boards · Chat · Docs · Voice · People · Platform</span
+          >Boards · Chat · Docs · Calls · Assistant · Automations</span
         >
       </div>
     </footer>
+    <script>
+      (function () {
+        if (!("IntersectionObserver" in window)) return;
+        var reduce = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+        if (reduce) return;
+        var items = document.querySelectorAll(
+          ".feature, .step, .section > .wrap > *, .closing .wrap"
+        );
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              var el = e.target;
+              el.classList.add("in");
+              io.unobserve(el);
+              setTimeout(function () {
+                el.style.transitionDelay = "";
+              }, 900);
+            });
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+        );
+        var gridCounters = new Map();
+        items.forEach(function (el) {
+          el.classList.add("reveal");
+          var parent = el.parentElement;
+          if (
+            parent &&
+            (parent.classList.contains("grid6") ||
+              parent.classList.contains("steps"))
+          ) {
+            var i = gridCounters.get(parent) || 0;
+            gridCounters.set(parent, i + 1);
+            el.style.transitionDelay = i * 70 + "ms";
+          }
+          io.observe(el);
+        });
+      })();
+    </script>
   </body>
 </html>
