@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rinavai — OG image source</title>
+    <!--
+      Editable 1200x630 source for og-image.png.
+      Render with headless Chrome (see README → "Regenerating the OG image").
+      Keep the right-hand mockup unrotated — a rotate() pushes the top-right
+      corner past the canvas and gets clipped.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap"
+    />
+    <style>
+      :root {
+        --surface: #171009;
+        --surface-raised: #221711;
+        --surface-sunken: #100a06;
+        --ink: #efe7dc;
+        --ink-muted: #a99b8b;
+        --ink-faint: #7e6f5f;
+        --line: #362818;
+        --line-strong: #4d3a27;
+        --accent: #14b8a1;
+        --accent-ink: #05231d;
+        --success: #48c078;
+        --warning: #e8a127;
+        --danger: #e5484d;
+        --s-chat: #3d9df0;
+        --s-people: #e06c9f;
+        --glow: color-mix(in srgb, var(--accent) 24%, transparent);
+        --top-light: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+      body {
+        background: var(--surface);
+        color: var(--ink);
+        font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+        position: relative;
+      }
+
+      /* Ambient glow blobs — the teal that bleeds into the dark */
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .blob-1 {
+        top: -300px;
+        right: -160px;
+        width: 760px;
+        height: 760px;
+        background: radial-gradient(
+          closest-side,
+          color-mix(in srgb, var(--accent) 20%, transparent),
+          transparent 70%
+        );
+      }
+      .blob-2 {
+        bottom: -300px;
+        left: -220px;
+        width: 620px;
+        height: 620px;
+        background: radial-gradient(
+          closest-side,
+          color-mix(in srgb, var(--accent) 10%, transparent),
+          transparent 72%
+        );
+      }
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1.08fr 0.92fr;
+        gap: 48px;
+        align-items: center;
+        padding: 64px 64px 64px 72px;
+      }
+
+      /* ---- Left: brand + headline ---- */
+      .left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 44px;
+      }
+      .brand-mark {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(160deg, #1f5f54, var(--surface-raised));
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--top-light);
+      }
+      .brand-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .brand-name {
+        font-size: 34px;
+        font-weight: 650;
+        letter-spacing: -0.02em;
+      }
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+        font-size: 16px;
+        letter-spacing: 0.05em;
+        color: var(--ink-muted);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 20px;
+        margin-bottom: 34px;
+        background: var(--surface-raised);
+        box-shadow: var(--top-light);
+        white-space: nowrap;
+      }
+      .kicker .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--success);
+      }
+      .kicker b {
+        color: var(--ink);
+        font-weight: 500;
+      }
+      h1 {
+        font-size: 78px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.04;
+        margin: 0;
+      }
+      h1 em {
+        font-style: normal;
+        background: linear-gradient(100deg, #2dd4bc 0%, #14b8a1 55%, #3ecfb8 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+      .sub {
+        margin-top: 26px;
+        font-size: 26px;
+        line-height: 1.5;
+        color: var(--ink-muted);
+        max-width: 22ch;
+      }
+      .url {
+        margin-top: 40px;
+        font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+        font-size: 17px;
+        letter-spacing: 0.02em;
+        color: var(--ink-faint);
+      }
+      .url b {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      /* ---- Right: product mockup (unrotated — see comment at top) ---- */
+      .right {
+        position: relative;
+        min-width: 0;
+      }
+      .mock-window {
+        position: relative;
+        background: linear-gradient(180deg, var(--surface-raised), var(--surface) 58%);
+        border: 1px solid var(--line-strong);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow:
+          0 40px 90px rgba(0, 0, 0, 0.55),
+          0 0 70px var(--glow),
+          var(--top-light);
+      }
+      .mock-titlebar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface-raised);
+      }
+      .mock-dots {
+        display: flex;
+        gap: 7px;
+      }
+      .mock-dots span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--line-strong);
+      }
+      .mock-crumb {
+        font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+        font-size: 13px;
+        color: var(--ink-faint);
+      }
+      .mock-body {
+        display: grid;
+        grid-template-columns: 128px 1fr;
+      }
+      .mock-rail {
+        border-right: 1px solid var(--line);
+        background: var(--surface-sunken);
+        padding: 14px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .mock-org {
+        width: 100%;
+        height: 26px;
+        border-radius: 7px;
+        margin-bottom: 12px;
+        background: linear-gradient(160deg, #1f5f54, var(--surface-raised));
+        border: 1px solid var(--line);
+      }
+      .mock-nav {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 9px;
+        border-radius: 7px;
+        font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+        font-size: 12.5px;
+        letter-spacing: 0.02em;
+        color: var(--ink-faint);
+      }
+      .mock-nav .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--suite, var(--ink-faint));
+        flex-shrink: 0;
+      }
+      .mock-nav.active {
+        color: var(--ink);
+        background: #2a1c12;
+      }
+      .mock-nav.active::before {
+        content: "";
+        position: absolute;
+        left: -10px;
+        top: 5px;
+        bottom: 5px;
+        width: 2px;
+        border-radius: 2px;
+        background: var(--suite, var(--accent));
+      }
+      .mock-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        padding: 18px;
+      }
+      .mock-col-head {
+        font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+        font-size: 11.5px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 11px;
+      }
+      .mock-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 9px;
+        background: var(--surface-raised);
+        border: 1px solid var(--line);
+        box-shadow: var(--top-light);
+        padding: 9px 11px 11px 14px;
+        margin-bottom: 10px;
+      }
+      .mock-card .bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--bar, var(--line-strong));
+      }
+      .mock-card b {
+        display: block;
+        font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+        font-size: 10.5px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: var(--ink-faint);
+      }
+      .mock-card .lbl {
+        display: block;
+        height: 6px;
+        width: 78%;
+        margin-top: 8px;
+        border-radius: 3px;
+        background: var(--line-strong);
+        opacity: 0.75;
+      }
+      .mock-card.short .lbl {
+        width: 52%;
+      }
+      .mock-card.active {
+        border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+        box-shadow:
+          0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent),
+          var(--top-light);
+      }
+      .mock-card .av {
+        position: absolute;
+        right: 9px;
+        top: 9px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: var(--av, var(--s-people));
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="stage">
+      <div class="left">
+        <div class="brand">
+          <div class="brand-mark"><img src="rinavai.png" alt="" /></div>
+          <span class="brand-name">Rinavai</span>
+        </div>
+        <span class="kicker"
+          ><span class="dot"></span><b>Live demo</b>&nbsp;· boards · chat ·
+          docs · calls · AI</span
+        >
+        <h1>Where teams<br /><em>move</em> together.</h1>
+        <p class="sub">
+          One tenant-scoped platform, with an AI assistant that does the work.
+        </p>
+        <p class="url"><b>rinavai</b> · m-ishfaq.github.io/rinavai</p>
+      </div>
+      <div class="right" aria-hidden="true">
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="mock-dots"><span></span><span></span><span></span></div>
+            <span class="mock-crumb">Acme Corp · Sprint 4 · Board</span>
+          </div>
+          <div class="mock-body">
+            <aside class="mock-rail">
+              <div class="mock-org"></div>
+              <div class="mock-nav active" style="--suite: #14b8a1">
+                <span class="dot"></span>My tasks
+              </div>
+              <div class="mock-nav" style="--suite: #3d9df0">
+                <span class="dot"></span>Chat
+              </div>
+              <div class="mock-nav" style="--suite: #48c078">
+                <span class="dot"></span>Docs
+              </div>
+              <div class="mock-nav" style="--suite: #f09f3f">
+                <span class="dot"></span>Calls
+              </div>
+              <div class="mock-nav" style="--suite: #e06c9f">
+                <span class="dot"></span>People
+              </div>
+              <div class="mock-nav" style="--suite: #a78bfa">
+                <span class="dot"></span>Assistant
+              </div>
+            </aside>
+            <div class="mock-board">
+              <div>
+                <div class="mock-col-head">To do</div>
+                <div class="mock-card" style="--bar: #e8a127">
+                  <b>WEB-345</b><i class="lbl"></i>
+                </div>
+                <div class="mock-card short" style="--bar: #48c078">
+                  <b>WEB-347</b><i class="lbl"></i>
+                </div>
+                <div class="mock-card" style="--bar: #e5484d">
+                  <b>WEB-349</b><i class="lbl"></i>
+                </div>
+              </div>
+              <div>
+                <div class="mock-col-head">In progress</div>
+                <div class="mock-card active" style="--bar: #e5484d">
+                  <b>WEB-66</b><i class="lbl"></i
+                  ><span class="av" style="--av: #e06c9f"></span>
+                </div>
+                <div class="mock-card" style="--bar: #e8a127">
+                  <b>WEB-67</b><i class="lbl"></i
+                  ><span class="av" style="--av: #3d9df0"></span>
+                </div>
+                <div class="mock-card" style="--bar: #48c078">
+                  <b>WEB-69</b><i class="lbl"></i>
+                </div>
+              </div>
+              <div>
+                <div class="mock-col-head">Done</div>
+                <div class="mock-card short" style="--bar: #48c078">
+                  <b>WEB-138</b><i class="lbl"></i>
+                </div>
+                <div class="mock-card" style="--bar: #48c078">
+                  <b>WEB-142</b><i class="lbl"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

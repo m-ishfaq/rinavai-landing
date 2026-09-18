@@ -1,8 +1,8 @@
-# Rinaval — Landing Page
+# Rinavai — Landing Page
 
-**Where teams *move* together.** Boards, chat, docs, calls, and an AI assistant that does the work — one tenant-scoped platform.
+**Where teams _move_ together.** Boards, chat, docs, calls, and an AI assistant that does the work — one tenant-scoped platform.
 
-This repo holds the single-file marketing/landing page for **Rinaval**, deployed to GitHub Pages.
+This repo holds the single-file marketing/landing page for **Rinavai**, deployed to **Vercel**.
 
 ---
 
@@ -12,10 +12,10 @@ This repo holds the single-file marketing/landing page for **Rinaval**, deployed
 - [Getting started](#getting-started)
 - [Deployment](#deployment)
 - [Configuration](#configuration)
+- [APK distribution](#apk-distribution)
 - [Brand & design system](#brand--design-system)
 - [Regenerating the OG image](#regenerating-the-og-image)
 - [SEO & structured data](#seo--structured-data)
-- [Reference material](#reference-material)
 
 ---
 
@@ -27,67 +27,87 @@ This repo holds the single-file marketing/landing page for **Rinaval**, deployed
 ├── rinavai.png                 # Product logo (favicon, header, footer)
 ├── og-image.png                # 1200x630 social share card (og:image / twitter:image)
 ├── og-template.html            # Editable source for og-image.png (rendered via headless Chrome)
-├── robots.txt                  # Crawler rules + sitemap pointer
-├── sitemap.xml                 # Single-URL sitemap
-├── user-side/                  # Reference screenshots — end-user product UI
-├── admin-side/                 # Reference screenshots — admin console UI
-└── .github/
-    └── workflows/
-        └── deploy.yml          # GitHub Pages deploy (with demo-URL templating)
+├── scripts/
+│   └── build.mjs               # Build-time substitution of __DEMO_URL__ / __SITE_URL__
+├── vercel.json                 # Vercel build command + output directory
+├── robots.txt                  # Crawler rules + sitemap pointer (templated)
+└── sitemap.xml                 # Single-URL sitemap (templated)
 ```
 
 ---
 
 ## Getting started
 
-No build step, no dependencies. Open the page:
+No dependencies — only Node (any recent version) for the build script.
 
 ```bash
-# just open index.html in a browser, or serve it
-npx serve .
+# set the two template values, then build into ./dist
+DEMO_URL="https://your-demo.example.com" node scripts/build.mjs
+
+# preview the built page
+npx serve dist
 ```
 
-> Note: links to the live demo appear as `__DEMO_URL__` in source; they are
-> substituted at deploy time (see [Configuration](#configuration)).
+> The source files carry `__DEMO_URL__` / `__SITE_URL__` placeholders;
+> they are substituted at build time (see [Configuration](#configuration)).
 
 ---
 
 ## Deployment
 
-Deploys automatically to **GitHub Pages** on every push to `main`
-(`.github/workflows/deploy.yml`), or manually via **Actions → Deploy landing page → Run workflow**.
+Deploys automatically to **Vercel** on every push to `main`; every PR gets a
+preview deployment.
 
-Pipeline steps:
+1. Import the repo into a Vercel project — `vercel.json` supplies the build
+   command (`node scripts/build.mjs`) and output directory (`dist`).
+2. Set **Environment Variables** on the project
+   (Settings → Environment Variables):
+   - `DEMO_URL` — required; the build fails without it.
+   - `SITE_URL` — optional; set it once the custom domain is live.
 
-1. Substitute `__DEMO_URL__` with the repo variable `DEMO_URL`
-   (fails the build if the variable is missing or the placeholder survives).
-2. Upload the repo as the Pages artifact and deploy.
+Changing where the demo lives is a one-line env var change + redeploy —
+never an edit to `index.html`.
 
 ---
 
 ## Configuration
 
-| Setting | Where | Purpose |
-| --- | --- | --- |
-| `DEMO_URL` | Repo **Variables** (Settings → Secrets and variables → Actions → Variables) | The live-demo URL substituted into every demo link at build time |
+| Variable   | Where                          | Purpose                                                                                                             |
+| ---------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `DEMO_URL` | Vercel project env var (required) | The live-demo URL substituted into every demo link at build time                                                  |
+| `SITE_URL` | Vercel project env var (optional) | The public origin used by the canonical URL, OG/Twitter image URLs, JSON-LD, `sitemap.xml`, and `robots.txt`       |
 
-Changing where the demo lives is a one-line variable change + workflow re-run — never an edit to `index.html`.
+`SITE_URL` falls back to Vercel's production URL (`VERCEL_PROJECT_PRODUCTION_URL`)
+when available, and to `http://localhost:3000` for local builds.
+
+---
+
+## APK distribution
+
+The "Download APK" buttons link to this repo's GitHub Releases:
+
+```
+https://github.com/m-ishfaq/rinavai-landing/releases/latest/download/rinavai.apk
+```
+
+To ship a new build: create a release on the repo and upload the APK as
+`rinavai.apk` — the link always resolves to the latest one.
 
 ---
 
 ## Brand & design system
 
-The landing page mirrors the product UI (see `user-side/` and `admin-side/` screenshots).
+The landing page mirrors the product UI.
 
 **Palette** (CSS custom properties on `:root` in `index.html`):
 
-| Token | Value | Use |
-| --- | --- | --- |
-| `--surface` | `#171009` | Page ground (warm espresso dark) |
-| `--surface-raised` | `#221711` | Cards, panels |
-| `--accent` | `#14b8a1` | Teal — the only actionable color (buttons, links, active states) |
-| `--ink` / `--ink-muted` | `#efe7dc` / `#a99b8b` | Text / secondary text |
-| `--line` / `--line-strong` | `#362818` / `#4d3a27` | Borders |
+| Token                      | Value                 | Use                                                              |
+| -------------------------- | --------------------- | ---------------------------------------------------------------- |
+| `--surface`                | `#171009`             | Page ground (warm espresso dark)                                 |
+| `--surface-raised`         | `#221711`             | Cards, panels                                                    |
+| `--accent`                 | `#14b8a1`             | Teal — the only actionable color (buttons, links, active states) |
+| `--ink` / `--ink-muted`    | `#efe7dc` / `#a99b8b` | Text / secondary text                                            |
+| `--line` / `--line-strong` | `#362818` / `#4d3a27` | Borders                                                          |
 
 **Suite spectrum** — one orientation hue per module, never used on buttons/links:
 Work `#14b8a1` · Chat `#3d9df0` · Docs `#48c078` · Calls `#f09f3f` · People `#e06c9f` · Assistant `#a78bfa`
@@ -101,21 +121,28 @@ Work `#14b8a1` · Chat `#3d9df0` · Docs `#48c078` · Calls `#f09f3f` · People 
 ## Regenerating the OG image
 
 `og-template.html` is the editable 1200×630 source for `og-image.png`.
-After editing it, re-render with headless Chrome:
+After editing it, re-render with headless Chrome (Git Bash on Windows):
 
 ```bash
 CHROME="/c/Program Files/Google/Chrome/Application/chrome.exe"
 "$CHROME" --headless=new --disable-gpu --no-sandbox \
-  --user-data-dir="$TEMP/rinaval-og-profile" \
+  --user-data-dir="$TEMP/rinavai-og-profile" \
   --hide-scrollbars --force-device-scale-factor=1 \
   --window-size=1200,630 \
+  --virtual-time-budget=15000 \
   --screenshot="$TEMP/og-new.png" \
-  "file://$(pwd)/og-template.html"
+  "file://$(cygpath -m "$(pwd)")/og-template.html"
 cp "$TEMP/og-new.png" og-image.png
 ```
 
-Keep the right-hand mockup unrotated — a `rotate()` on it pushes the top-right
-corner past the canvas and gets clipped.
+Notes:
+
+- `cygpath -m` is required — `file://$(pwd)/...` produces an invalid
+  `file:///c/...` URL in Git Bash and Chrome silently renders a blank image.
+- `--virtual-time-budget=15000` gives the Google Fonts webfonts time to load
+  before the screenshot.
+- Keep the right-hand mockup unrotated — a `rotate()` on it pushes the
+  top-right corner past the canvas and gets clipped.
 
 ---
 
@@ -123,14 +150,7 @@ corner past the canvas and gets clipped.
 
 - Title/description/OG/Twitter meta, canonical URL, `robots` directives
 - JSON-LD: `SoftwareApplication` (product info) + `FAQPage` (mirrors the FAQ section)
-- `sitemap.xml` + `robots.txt` pointing at the Pages URL
+- `sitemap.xml` + `robots.txt`, templated with `__SITE_URL__` at build time
 
 > After redeploying with a changed share image, bust platform caches via the
 > Slack unfurl reset, Twitter Card validator, and Facebook Sharing Debugger.
-
----
-
-## Reference material
-
-`user-side/` and `admin-side/` hold WhatsApp screenshots of the real product UI.
-They are the source of truth for the landing page's look and feel — reference material only.
