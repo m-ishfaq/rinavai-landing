@@ -26,10 +26,6 @@ This repo holds the single-file marketing/landing page for **Rinavai**, deployed
 ├── index.html                  # The entire landing page (HTML + CSS + JS, single file)
 ├── rinavai.png                 # Product logo (favicon, header, footer)
 ├── og-image.png                # 1200x630 social share card (og:image / twitter:image)
-├── og-template.html            # Editable source for og-image.png (rendered via headless Chrome)
-├── scripts/
-│   └── build.mjs               # Build-time substitution of __DEMO_URL__ / __SITE_URL__
-├── vercel.json                 # Vercel build command + output directory
 ├── robots.txt                  # Crawler rules + sitemap pointer (templated)
 └── sitemap.xml                 # Single-URL sitemap (templated)
 ```
@@ -72,10 +68,10 @@ never an edit to `index.html`.
 
 ## Configuration
 
-| Variable   | Where                          | Purpose                                                                                                             |
-| ---------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `DEMO_URL` | Vercel project env var (required) | The live-demo URL substituted into every demo link at build time                                                  |
-| `SITE_URL` | Vercel project env var (optional) | The public origin used by the canonical URL, OG/Twitter image URLs, JSON-LD, `sitemap.xml`, and `robots.txt`       |
+| Variable   | Where                             | Purpose                                                                                                      |
+| ---------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `DEMO_URL` | Vercel project env var (required) | The live-demo URL substituted into every demo link at build time                                             |
+| `SITE_URL` | Vercel project env var (optional) | The public origin used by the canonical URL, OG/Twitter image URLs, JSON-LD, `sitemap.xml`, and `robots.txt` |
 
 `SITE_URL` falls back to Vercel's production URL (`VERCEL_PROJECT_PRODUCTION_URL`)
 when available, and to `http://localhost:3000` for local builds.
